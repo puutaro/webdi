@@ -105,7 +105,7 @@ export const  ListComponent =
             >
                 {listConfig?.text && (
                     <h1
-                        className="font-bold text-blue-900  whitespace-pre-wrap"
+                        className="font-bold  whitespace-pre-wrap"
                         style={{
                             fontSize: "calc(1em * 110 / 100)",
                             padding: "calc(1em * 110 / 100)",
@@ -137,7 +137,13 @@ export const  ListComponent =
                     onCompositionEnd={() => {
                         justEndedComposingRef.current = true;
                     }}
-                    className="border-b border-gray-300 rounded focus:outline-none focus:border-blue-500"
+                    className="
+                        border-b border-gray-300 rounded 
+                        focus:outline-none 
+                        focus:border-teal-900
+                        selection:bg-teal-100
+                        "
+                        // focus:border-green-500
                     onKeyDown={(e) => {
                         onKeyDown({
                             e,

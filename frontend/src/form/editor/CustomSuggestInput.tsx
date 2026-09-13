@@ -137,6 +137,13 @@ export const CustomSuggestInput = ({
                 autoCapitalize="off"
                 spellCheck="false"
                 autoComplete="off"
+                className="
+                    border rounded w-full
+                    active:bg-teal-200 transition-colors 
+                    selection:bg-teal-100
+                    focus:outline-none focus:ring-2 
+                    focus:ring-teal-400
+                "
                 value={displayText}
                 onFocus={(e) => {
                     handleSelect(e);
@@ -198,7 +205,6 @@ export const CustomSuggestInput = ({
                     return;
                 }
             }}
-                className="border rounded w-full"
                 style={{
                     padding: `${borderValue}px`,
                     fontSize: `${fontSize}px`,
@@ -235,8 +241,10 @@ export const CustomSuggestInput = ({
                                     setFieldValue(fieldKey, sgText);
                                     setIsOpen(false);
                                 }}
-                                className={`cursor-pointer whitespace-normal break-all leading-normal ${
-                                    isSelected ? 'bg-blue-100 text-blue-900 font-semibold' : ''
+                                className={`
+                                    cursor-pointer whitespace-normal 
+                                    break-all leading-normal ${
+                                    isSelected ? 'bg-teal-100 text-teal-900 font-semibold' : ''
                                 }`}
                                 style={{
                                     fontSize: `${fontSize}px`,

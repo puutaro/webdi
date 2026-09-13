@@ -131,7 +131,14 @@ export const CustomSelectField = ({
                 }}
                 onKeyDown={handleKeyDown}
                 onBlur={handleBlur}
-                className="w-full border rounded text-left flex justify-between items-center bg-blue-50 hover:bg-blue-100 active:bg-blue-200 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="
+                    w-full border rounded text-left 
+                    flex justify-between items-center 
+                    bg-teal-50 hover:bg-teal-100 
+                    active:bg-teal-200 transition-colors 
+                    focus:outline-none focus:ring-2 
+                    focus:ring-teal-400
+                    "
                 style={{ padding: `${borderValue}px` }}
             >
                 <span>{currentValue}</span>
@@ -140,7 +147,13 @@ export const CustomSelectField = ({
 
             {/* ドロップダウンメニュー */}
             {isOpen && items.length > 0 && (
-                <ul className="absolute z-50 left-0 right-0 mt-1 bg-white border rounded shadow-lg max-h-60 overflow-y-auto py-1">
+                <ul 
+                    className="
+                        absolute z-50 left-0 right-0 mt-1 
+                        bg-white border rounded 
+                        shadow-lg max-h-60 
+                        overflow-y-auto py-1
+                    ">
                     {items.map((item, index) => {
                         const isFocused = index === selectedIndex;
                         const isSelected = item === currentValue;
@@ -159,11 +172,14 @@ export const CustomSelectField = ({
                                     setFieldValue(fieldKey, item);
                                     setIsOpen(false);
                                 }}
-                                className={`cursor-pointer whitespace-normal break-all leading-normal ${
+                                className={
+                                    `cursor-pointer whitespace-normal 
+                                        break-all leading-normal 
+                                        ${
                                     isFocused
-                                        ? 'font-semibold bg-blue-100 text-blue-900'
+                                        ? 'font-semibold bg-teal-100 text-green-900'
                                         : isSelected
-                                            ? 'bg-blue-50 text-blue-800'
+                                            ? 'bg-teal-50 text-green-800'
                                             : ''
                                 }`}
                                 style={{ padding: `${borderValue}px` }}

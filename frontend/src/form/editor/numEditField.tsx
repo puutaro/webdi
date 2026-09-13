@@ -125,7 +125,14 @@ export const NumEditField = ({
         onMouseDown={() => startHold(-1)}
         onMouseUp={stopHold}
         onMouseLeave={stopHold}
-        className="border-t border-b border-r bg-blue-50 hover:bg-blue-100 active:bg-blue-200 select-none"
+        className="
+          border-t border-b border-r 
+          bg-teal-50 
+          focus:outline-none focus:ring-2 
+          focus:ring-teal-400
+          hover:bg-teal-100 
+          active:bg-teal-200 
+          select-none"
         style={{ padding: `${borderValue}px` }}
       >
         -
@@ -138,7 +145,14 @@ export const NumEditField = ({
         onMouseDown={() => startHold(1)}
         onMouseUp={stopHold}
         onMouseLeave={stopHold}
-        className="border-t border-b border-r rounded-r bg-blue-50 hover:bg-blue-100 active:bg-blue-200 select-none"
+        className="
+          border-t border-b border-r rounded-r 
+          bg-teal-50 
+          focus:outline-none focus:ring-2 
+          focus:ring-teal-400
+          hover:bg-teal-100 
+          active:bg-teal-200 select-none
+          "
         style={{ padding: `${borderValue}px` }}
       >
         +

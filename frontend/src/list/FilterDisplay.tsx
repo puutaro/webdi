@@ -41,9 +41,13 @@ export const FilterDisplay = ({
                         tabIndex={-1} // ★ タブフォーカスを無効化
                         ref={(el) => listItemRefs.current[actualIndex] = el}
                         // ★ selectedIndex と一致している時に「フォーカス時と同じスタイル」を適用
-                        className={`rounded cursor-pointer border-transparent break-all ${
-                            isSelected ? "bg-blue-100 border-blue-400 font-semibold" : ""
+                        className={`
+                            rounded cursor-pointer border-transparent break-all 
+                            font-semibold
+                            ${ isSelected ? "bg-teal-100 border-gray-400 font-semibold" : ""
                         }`}
+                            // bg-gray-100
+                            // text-teal-600
                         onMouseDown={(e) => {
                             // ★ クリック時に input からフォーカスが外れるのを防ぐ
                             e.preventDefault();

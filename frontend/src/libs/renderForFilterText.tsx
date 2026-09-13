@@ -39,7 +39,9 @@ export const renderForFilterText = (
             }
             // ハイライトテキスト
             parts.push(
-                <strong key={i} className="font-extrabold text-blue-600 bg-blue-50">
+                <strong key={i} className="
+                    font-extrabold text-teal-600 
+                    bg-teal-50">
                     {displayText.substring(matchIdx, matchIdx + 1)}
                 </strong>
             );

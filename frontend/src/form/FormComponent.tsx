@@ -196,7 +196,7 @@ export const FormComponent = ({
         >
             {formConfig?.text && (
                 <h1
-                    className="font-bold text-blue-900 flex-shrink-0"
+                    className="font-bold flex-shrink-0"
                     style={{
                         fontSize: `${titleFontSize}px`,
                         padding: `${titlePadding}px`,
@@ -237,7 +237,11 @@ export const FormComponent = ({
 
                                     {field.type === 'TXT' && (
                                         <input
-                                            ref={isFirstTarget ? (el) => { firstFocusRef.current = el; } : undefined}
+                                            ref={
+                                                isFirstTarget ? (el) => { 
+                                                    firstFocusRef.current = el; 
+                                                } : undefined
+                                            }
                                             type="text"
                                             autoCorrect="off"
                                             autoCapitalize="off"
@@ -255,7 +259,13 @@ export const FormComponent = ({
                                                 }
                                                 inputEscGuard(e);
                                             }}
-                                            className="border rounded"
+                                            className="
+                                                border rounded
+                                                active:bg-teal-200 transition-colors 
+                                                selection:bg-teal-100
+                                                focus:outline-none focus:ring-2 
+                                                focus:ring-teal-400
+                                                "
                                             style={{ padding: `${borderValue}px` }}
                                         />
                                     )}

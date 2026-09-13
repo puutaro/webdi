@@ -60,7 +60,15 @@ export const FileSelectField = ({
               console.error("Failed to open file dialog:", err);
             }
           }}
-          className="border rounded bg-blue-50 hover:bg-blue-100 active:bg-blue-200 px-3 py-1"
+          className="
+            border rounded 
+            bg-teal-100 
+            hover:bg-teal-200 
+            active:bg-teal-300 
+            focus:outline-none focus:ring-2 
+            focus:ring-teal-400
+            px-3 py-1
+            "
           style={{ padding: `${borderValue}px` }}
         >
           file...

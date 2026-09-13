@@ -146,9 +146,22 @@ function App() {
 
         <div
             // className="flex flex-col h-screen overflow-hidden bg-white font-mono"
-            className="flex flex-col h-screen overflow-hidden bg-white font-mono shadow-2xl border border-gray-200 rounded-lg"
-            style={{ fontSize: fontSizePx }}
-
+            className="
+                flex flex-col h-screen overflow-hidden 
+                bg-white 
+                font-mono text-green-500
+                text-green-900
+                antialiased 
+                shadow-2xl 
+                border border-gray-200 rounded-lg"
+            style={{ 
+                fontSize: fontSizePx,
+                // color: "#1b4d3e",
+                // color: "#333333",
+                // WebkitTextStroke: "0.0001em #ff4500", 
+                // WebkitTextStroke: "0.01px #ff4500",
+                // textShadow: "0 0 10px #ff4500, 0 0 20px #ff8c00",
+            }}
         >
             {/* 1. 最上部にカスタムヘッダーを配置（ウィンドウドラッグ用） */}
             <CustomHeader

@@ -51,7 +51,15 @@ export const BottomButton = ({
                 setHistoryMap,
                 keepConfigRef.current,
             )}
-            className="border rounded bg-blue-50 hover:bg-blue-100 active:bg-blue-200 shadow-sm"
+            className="
+              border rounded 
+              bg-teal-100 
+              hover:bg-teal-200 
+              active:bg-teal-300 
+              focus:outline-none focus:ring-2 
+              focus:ring-teal-400
+              shadow-sm
+              "
             style={{ 
                 padding: `${borderValue}px`, 
                 fontSize: "1em",

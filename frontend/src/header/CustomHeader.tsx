@@ -26,7 +26,8 @@ export const CustomHeader = memo( ({
         <div
             className="flex items-center justify-between text-white px-3 py-2 select-none"
             style={{
-                backgroundColor: '#1b4d3e',
+                // backgroundColor: '#1b4d3e',
+                backgroundColor: '#002900',
                 // ★ Wails公式のドラッグ指定用CSS変数に変更
                 '--wails-draggable': 'drag',
             } as React.CSSProperties}
