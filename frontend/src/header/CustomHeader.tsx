@@ -24,8 +24,14 @@ export const CustomHeader = memo( ({
 
     return (
         <div
-            className="flex items-center justify-between text-white px-3 py-2 select-none"
+            className="
+                flex items-center justify-between 
+                text-white 
+                px-3 py-2 
+                select-none"
             style={{
+                WebkitTextStroke: "0px transparent" ,
+                textShadow: "none",
                 // backgroundColor: '#1b4d3e',
                 backgroundColor: '#002900',
                 // ★ Wails公式のドラッグ指定用CSS変数に変更

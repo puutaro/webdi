@@ -158,7 +158,8 @@ function App() {
                 fontSize: fontSizePx,
                 // color: "#1b4d3e",
                 // color: "#333333",
-                // WebkitTextStroke: "0.0001em #ff4500", 
+                WebkitTextStroke: "4px #ffffff",
+                paintOrder: "stroke fill",
                 // WebkitTextStroke: "0.01px #ff4500",
                 // textShadow: "0 0 10px #ff4500, 0 0 20px #ff8c00",
             }}
