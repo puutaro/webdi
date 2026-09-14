@@ -28,15 +28,6 @@ type ListCmd struct {
 	unique.Unique
 }
 
-func (c *ListCmd) GetWindowConfig() window.WindowOptions {
-	return window.WindowOptions{
-		Width:  c.Width,
-		Height: c.Height,
-		X:      c.X,
-		Y:      c.Y,
-	}
-}
-
 type ListConfigResponse struct {
 	Id          string          `json:"id"`
 	WindowIcon  string          `json:"windowIcon"`

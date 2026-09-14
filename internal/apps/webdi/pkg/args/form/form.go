@@ -42,17 +42,6 @@ type FormCmd struct {
 	unique.Unique
 }
 
-func (c *FormCmd) GetWindowConfig() window.WindowOptions {
-	return window.WindowOptions{
-		Title:  c.Title,
-		Center: c.Center,
-		Width:  c.Width,
-		Height: c.Height,
-		X:      c.X,
-		Y:      c.Y,
-	}
-}
-
 // レスポンス用の構造体を定義（これなら型安全！）
 type FormConfigResponse struct {
 	Id            string      `json:"id"`
