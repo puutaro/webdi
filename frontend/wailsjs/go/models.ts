@@ -1,3 +1,22 @@
+export namespace design {
+	
+	export class DesignConfig {
+	    borders: number;
+	    fontSize: number;
+	
+	    static createFrom(source: any = {}) {
+	        return new DesignConfig(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.borders = source["borders"];
+	        this.fontSize = source["fontSize"];
+	    }
+	}
+
+}
+
 export namespace form {
 	
 	export class ButtonDef {
@@ -40,8 +59,7 @@ export namespace form {
 	    windowIcon: string;
 	    title: string;
 	    text: string;
-	    borders: number;
-	    fontSize: number;
+	    design: design.DesignConfig;
 	    itemSeparator: string;
 	    separator: string;
 	    fields: FieldDef[];
@@ -58,8 +76,7 @@ export namespace form {
 	        this.windowIcon = source["windowIcon"];
 	        this.title = source["title"];
 	        this.text = source["text"];
-	        this.borders = source["borders"];
-	        this.fontSize = source["fontSize"];
+	        this.design = this.convertValues(source["design"], design.DesignConfig);
 	        this.itemSeparator = source["itemSeparator"];
 	        this.separator = source["separator"];
 	        this.fields = this.convertValues(source["fields"], FieldDef);
@@ -111,8 +128,7 @@ export namespace list {
 	    title: string;
 	    text: string;
 	    list: string[];
-	    borders: number;
-	    fontSize: number;
+	    design: design.DesignConfig;
 	    reloads: ExecuteConfig[];
 	    executes: ExecuteConfig[];
 	    execQuits: ExecuteConfig[];
@@ -132,8 +148,7 @@ export namespace list {
 	        this.title = source["title"];
 	        this.text = source["text"];
 	        this.list = source["list"];
-	        this.borders = source["borders"];
-	        this.fontSize = source["fontSize"];
+	        this.design = this.convertValues(source["design"], design.DesignConfig);
 	        this.reloads = this.convertValues(source["reloads"], ExecuteConfig);
 	        this.executes = this.convertValues(source["executes"], ExecuteConfig);
 	        this.execQuits = this.convertValues(source["execQuits"], ExecuteConfig);

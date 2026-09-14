@@ -12,13 +12,11 @@ import { inputEscGuard } from '../libs/input_esc_gaurd';
 export type ListComponentProps = {
     listConfig: list.ListConfigResponse | null;
     keepConfigRef: React.MutableRefObject<KeepConfig>,
-    borderValue: number;
 }
 export const  ListComponent =
     ({
         listConfig,
         keepConfigRef,
-        borderValue,
    }: ListComponentProps
 ) => {
         const [listItems, setListItems] = useState<string[]>([]);
@@ -91,6 +89,8 @@ export const  ListComponent =
         }, [selectedIndex, filteredBodyItemObjs]);
 
         const justEndedComposingRef = useRef(false);
+        const design = listConfig?.design;
+        const borderValue = design?.borders ?? 10;
         return (
             <div
                 id="list-view"

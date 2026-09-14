@@ -29,20 +29,19 @@ type ListCmd struct {
 }
 
 type ListConfigResponse struct {
-	Id          string          `json:"id"`
-	WindowIcon  string          `json:"windowIcon"`
-	Title       string          `json:"title"`
-	Text        string          `json:"text"`
-	List        []string        `json:"list"`
-	Borders     int             `json:"borders"`
-	FontSize    int             `json:"fontSize"`
-	Reloads     []ExecuteConfig `json:"reloads"`
-	Executes    []ExecuteConfig `json:"executes"`
-	ExecQuits   []ExecuteConfig `json:"execQuits"`
-	Delimiter   string          `json:"delimiter"`
-	WithNth     int             `json:"withNth"`
-	HeaderLines int             `json:"headerLines"`
-	Cycle       bool            `json:"cycle"`
+	Id          string              `json:"id"`
+	WindowIcon  string              `json:"windowIcon"`
+	Title       string              `json:"title"`
+	Text        string              `json:"text"`
+	List        []string            `json:"list"`
+	Design      design.DesignConfig `json:"design"`
+	Reloads     []ExecuteConfig     `json:"reloads"`
+	Executes    []ExecuteConfig     `json:"executes"`
+	ExecQuits   []ExecuteConfig     `json:"execQuits"`
+	Delimiter   string              `json:"delimiter"`
+	WithNth     int                 `json:"withNth"`
+	HeaderLines int                 `json:"headerLines"`
+	Cycle       bool                `json:"cycle"`
 }
 
 type ExecuteConfig struct {
@@ -68,13 +67,15 @@ func (cmd *ListCmd) GetListConfig() ListConfigResponse {
 		execQuits[i] = cmd.parseKeyExitShell(quitExecStr)
 	}
 	return ListConfigResponse{
-		Id:          cmd.Id,
-		WindowIcon:  image.ImageToBase64(cmd.WindowIcon),
-		Title:       cmd.Title,
-		Text:        text.TextUnescapeNewlinesTab(cmd.Text.String(false)),
-		List:        strings.Split(cmd.List, "\n"),
-		Borders:     cmd.Design.Borders,
-		FontSize:    cmd.Design.FontSize,
+		Id:         cmd.Id,
+		WindowIcon: image.ImageToBase64(cmd.WindowIcon),
+		Title:      cmd.Title,
+		Text:       text.TextUnescapeNewlinesTab(cmd.Text.String(false)),
+		List:       strings.Split(cmd.List, "\n"),
+		Design: design.DesignConfig{
+			Borders:  cmd.Design.Borders,
+			FontSize: cmd.Design.FontSize,
+		},
 		Reloads:     reloads,
 		Executes:    executes,
 		ExecQuits:   execQuits,

@@ -44,17 +44,16 @@ type FormCmd struct {
 
 // レスポンス用の構造体を定義（これなら型安全！）
 type FormConfigResponse struct {
-	Id            string      `json:"id"`
-	SubId         string      `json:"subId"`
-	WindowIcon    string      `json:"windowIcon"`
-	Title         string      `json:"title"`
-	Text          string      `json:"text"`
-	Borders       int         `json:"borders"`
-	FontSize      int         `json:"fontSize"`
-	ItemSeparator string      `json:"itemSeparator"`
-	Separator     string      `json:"separator"`
-	Fields        []FieldDef  `json:"fields"`
-	Buttons       []ButtonDef `json:"buttons"`
+	Id            string              `json:"id"`
+	SubId         string              `json:"subId"`
+	WindowIcon    string              `json:"windowIcon"`
+	Title         string              `json:"title"`
+	Text          string              `json:"text"`
+	Design        design.DesignConfig `json:"design"`
+	ItemSeparator string              `json:"itemSeparator"`
+	Separator     string              `json:"separator"`
+	Fields        []FieldDef          `json:"fields"`
+	Buttons       []ButtonDef         `json:"buttons"`
 }
 
 func (cmd *FormCmd) GetFormConfig() FormConfigResponse {
@@ -87,13 +86,15 @@ func (cmd *FormCmd) GetFormConfig() FormConfigResponse {
 	}
 
 	return FormConfigResponse{
-		Id:            cmd.Id,
-		SubId:         cmd.SubId,
-		WindowIcon:    image.ImageToBase64(cmd.WindowIcon),
-		Title:         cmd.Title,
-		Text:          text.TextUnescapeNewlinesTab(cmd.Text.String(false)),
-		Borders:       cmd.Borders,
-		FontSize:      cmd.FontSize,
+		Id:         cmd.Id,
+		SubId:      cmd.SubId,
+		WindowIcon: image.ImageToBase64(cmd.WindowIcon),
+		Title:      cmd.Title,
+		Text:       text.TextUnescapeNewlinesTab(cmd.Text.String(false)),
+		Design: design.DesignConfig{
+			Borders:  cmd.Design.Borders,
+			FontSize: cmd.Design.FontSize,
+		},
 		ItemSeparator: cmd.ItemSeparator,
 		Separator:     cmd.Separator,
 		Fields:        parsedFields,

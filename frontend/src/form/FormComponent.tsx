@@ -25,13 +25,11 @@ export type SuggestHistoryItem = {
 export type FormComponentProps = {
     formConfig: form.FormConfigResponse | null;
     keepConfigRef: React.MutableRefObject<KeepConfig>;
-    borderValue: number;
 };
 
 export const FormComponent = ({
     formConfig,
     keepConfigRef,
-    borderValue,
 }: FormComponentProps) => {
 
     const [isAltPressed, setIsAltPressed] = useState(false);
@@ -184,10 +182,12 @@ export const FormComponent = ({
         setFormValues(initialValues);
     }, [formConfig]);
 
-    const fontSize = formConfig?.fontSize ?? 10;
+    const design = formConfig?.design;
+    const fontSize = design?.fontSize ?? 10;
     const titleFontSize = (fontSize * 110) / 100;
-    const titlePadding = (borderValue * 110) / 100;
+    const titlePadding = (design?.borders ?? 0 * 110) / 100;
     const labelFontSize = (fontSize * 3) / 4;
+    const borderValue = design?.borders ?? 10;
 
     return (
         <div

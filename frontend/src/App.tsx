@@ -130,11 +130,13 @@ function App() {
     let borderValue = 0;
     let fontSizeInt = 10;
     if (viewType === VIEW_MODES.FORM && formConfig) {
-        borderValue = formConfig.borders ?? 0;
-        fontSizeInt = formConfig.fontSize ?? 10;
+        const desgin = formConfig.design
+        borderValue = desgin.borders ?? 0;
+        fontSizeInt = desgin.fontSize ?? 10;
     } else if (viewType === VIEW_MODES.LIST && listConfig) {
-        borderValue = listConfig.borders ?? 0;
-        fontSizeInt = listConfig.fontSize ?? 10;
+        const desgin = listConfig.design
+        borderValue = desgin.borders ?? 0;
+        fontSizeInt = desgin.fontSize ?? 10;
     }
     const fontSizePx = `${fontSizeInt}px`;
     if (viewType === VIEW_MODES.LOADING) {
@@ -185,7 +187,6 @@ function App() {
                         <FormComponent
                             formConfig={formConfig}
                             keepConfigRef={keepConfigRef}
-                            borderValue={borderValue}
                         />
                     )}
 
@@ -193,7 +194,6 @@ function App() {
                         <ListComponent
                             listConfig={listConfig}
                             keepConfigRef={keepConfigRef}
-                            borderValue={borderValue}
                         />
                     )}
                 </div>
