@@ -69,7 +69,9 @@ export const FileSelectField = ({
             focus:ring-teal-400
             px-3 py-1
             "
-          style={{ padding: `${borderValue}px` }}
+          style={{ 
+            padding: `${borderValue}px` 
+          }}
         >
           file...
         </button>

@@ -161,7 +161,8 @@ function App() {
                 WebkitTextStroke: "4px #ffffff",
                 paintOrder: "stroke fill",
                 // WebkitTextStroke: "0.01px #ff4500",
-                // textShadow: "0 0 10px #ff4500, 0 0 20px #ff8c00",
+                // textShadow: "2px 2px 10px #5560fc, -2px -2px 10px #5560fc, 0 0 20px #5560fc",
+                // textShadow: "0 0 10px #5560fc, 0 0 20px #5560fc",
             }}
         >
             {/* 1. 最上部にカスタムヘッダーを配置（ウィンドウドラッグ用） */}

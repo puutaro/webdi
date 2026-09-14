@@ -1,11 +1,10 @@
 package list
 
 import (
-	"context"
 	"fmt"
-	"log"
 	"strings"
 
+	"github.com/puutaro/webdi/internal/apps/webdi/pkg/args/design"
 	"github.com/puutaro/webdi/internal/apps/webdi/pkg/args/gui"
 	"github.com/puutaro/webdi/internal/apps/webdi/pkg/args/image"
 	"github.com/puutaro/webdi/internal/apps/webdi/pkg/args/text"
@@ -23,14 +22,10 @@ type ListCmd struct {
 	WithNth     int      `arg:"--with-nth" default:"0" help:"display field by delimiter"`
 	HeaderLines int      `arg:"--header-lines" default:"0" help:"display first line by header"`
 	Cycle       bool     `arg:"--cycle" default:"false" help:"cycle cursor"`
+	design.Design
 	window.WindowOptions
 	gui.GuiOptions
 	unique.Unique
-}
-
-func (cmd *ListCmd) Run(ctx context.Context) error {
-	log.Println("Launching Wails window for list...")
-	return nil
 }
 
 func (c *ListCmd) GetWindowConfig() window.WindowOptions {
@@ -87,8 +82,8 @@ func (cmd *ListCmd) GetListConfig() ListConfigResponse {
 		Title:       cmd.Title,
 		Text:        text.TextUnescapeNewlinesTab(cmd.Text.String(false)),
 		List:        strings.Split(cmd.List, "\n"),
-		Borders:     cmd.Borders,
-		FontSize:    cmd.FontSize,
+		Borders:     cmd.Design.Borders,
+		FontSize:    cmd.Design.FontSize,
 		Reloads:     reloads,
 		Executes:    executes,
 		ExecQuits:   execQuits,

@@ -1,13 +1,12 @@
 package form
 
 import (
-	"context"
-	"log"
 	"strconv"
 	"strings"
 	"unicode"
 
 	"github.com/puutaro/webdi/internal/apps/webdi/pkg/args/buttons"
+	"github.com/puutaro/webdi/internal/apps/webdi/pkg/args/design"
 	"github.com/puutaro/webdi/internal/apps/webdi/pkg/args/gui"
 	"github.com/puutaro/webdi/internal/apps/webdi/pkg/args/image"
 	"github.com/puutaro/webdi/internal/apps/webdi/pkg/args/text"
@@ -36,18 +35,13 @@ type FormCmd struct {
 	FieldValues      []text.Base64Text `arg:"positional,separate" help:"field values (reco 'base64://' prefix about multiple line)"`
 	SelectableLabels bool              `arg:"--selectable-labels" help:"stub for yad comp"`
 	NoButtons        bool              `arg:"--no-buttons" help:"stub for yad comp"`
+	design.Design
 	window.WindowOptions
 	buttons.ButtonOptions
 	gui.GuiOptions
 	unique.Unique
 }
 
-// KongのRun()からも接続できるようにする
-func (cmd *FormCmd) Run(ctx context.Context) error {
-	log.Println("Launching Wails window for form...")
-	// ここで Wails のアプリケーションを起動する（wails.Run(...)）
-	return nil
-}
 func (c *FormCmd) GetWindowConfig() window.WindowOptions {
 	return window.WindowOptions{
 		Title:  c.Title,

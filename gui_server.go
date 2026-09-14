@@ -10,7 +10,7 @@ import (
 	// goruntime "runtime"
 
 	"github.com/fstanis/screenresolution"
-	"github.com/puutaro/webdi/internal/apps/webdi/pkg/list"
+	"github.com/puutaro/webdi/internal/apps/webdi/pkg/args/list"
 	"github.com/puutaro/webdi/internal/apps/webdi/pkg/network"
 	"github.com/puutaro/webdi/internal/apps/webdi/pkg/windowtool"
 	"github.com/wailsapp/wails/v2/pkg/runtime"

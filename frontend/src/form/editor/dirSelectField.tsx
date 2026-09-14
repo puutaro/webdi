@@ -45,7 +45,9 @@ export const DirSelectField = ({
               inputEscGuard(e)
           }}
           className="border rounded flex-1"
-          style={{ padding: `${borderValue}px` }}
+          style={{ 
+            padding: `${borderValue}px` 
+          }}
         />
         <button
           type="button"

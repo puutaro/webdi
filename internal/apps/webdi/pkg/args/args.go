@@ -10,9 +10,9 @@ import (
 	"github.com/BurntSushi/toml"
 	"github.com/alexflint/go-arg"
 
+	"github.com/puutaro/webdi/internal/apps/webdi/pkg/args/form"
+	"github.com/puutaro/webdi/internal/apps/webdi/pkg/args/list"
 	"github.com/puutaro/webdi/internal/apps/webdi/pkg/args/window"
-	"github.com/puutaro/webdi/internal/apps/webdi/pkg/form"
-	"github.com/puutaro/webdi/internal/apps/webdi/pkg/list"
 	"github.com/puutaro/webdi/internal/apps/webdi/pkg/network"
 	"github.com/puutaro/webdi/internal/apps/webdi/pkg/windowcmd"
 )

@@ -133,7 +133,9 @@ export const NumEditField = ({
           hover:bg-teal-100 
           active:bg-teal-200 
           select-none"
-        style={{ padding: `${borderValue}px` }}
+        style={{ 
+          padding: `${borderValue}px`
+       }}
       >
         -
       </button>

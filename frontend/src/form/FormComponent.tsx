@@ -266,7 +266,9 @@ export const FormComponent = ({
                                                 focus:outline-none focus:ring-2 
                                                 focus:ring-teal-400
                                                 "
-                                            style={{ padding: `${borderValue}px` }}
+                                            style={{ 
+                                                padding: `${borderValue}px` 
+                                            }}
                                         />
                                     )}
                                     {field.type === 'STXT' && (

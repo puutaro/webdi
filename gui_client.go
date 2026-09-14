@@ -8,9 +8,9 @@ import (
 	"os"
 
 	"github.com/puutaro/webdi/internal/apps/webdi/pkg/args"
+	"github.com/puutaro/webdi/internal/apps/webdi/pkg/args/form"
+	"github.com/puutaro/webdi/internal/apps/webdi/pkg/args/list"
 	"github.com/puutaro/webdi/internal/apps/webdi/pkg/args/text"
-	"github.com/puutaro/webdi/internal/apps/webdi/pkg/form"
-	"github.com/puutaro/webdi/internal/apps/webdi/pkg/list"
 	"github.com/puutaro/webdi/internal/apps/webdi/pkg/network"
 	"github.com/puutaro/webdi/internal/apps/webdi/pkg/proc"
 )
