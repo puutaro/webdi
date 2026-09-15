@@ -92,8 +92,9 @@ func (cmd *FormCmd) GetFormConfig() FormConfigResponse {
 		Title:      cmd.Title,
 		Text:       text.TextUnescapeNewlinesTab(cmd.Text.String(false)),
 		Design: design.DesignConfig{
-			Borders:  cmd.Design.Borders,
-			FontSize: cmd.Design.FontSize,
+			Borders:   cmd.Design.Borders,
+			FontSize:  cmd.Design.FontSize,
+			TextColor: cmd.Design.TextColorCode.String(),
 		},
 		ItemSeparator: cmd.ItemSeparator,
 		Separator:     cmd.Separator,

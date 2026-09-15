@@ -129,14 +129,18 @@ function App() {
 
     let borderValue = 0;
     let fontSizeInt = 10;
+    let textColorClass = "#134E4A";
     if (viewType === VIEW_MODES.FORM && formConfig) {
         const desgin = formConfig.design
         borderValue = desgin.borders ?? 0;
         fontSizeInt = desgin.fontSize ?? 10;
+        textColorClass = desgin.textColor ?? textColorClass;
     } else if (viewType === VIEW_MODES.LIST && listConfig) {
         const desgin = listConfig.design
         borderValue = desgin.borders ?? 0;
         fontSizeInt = desgin.fontSize ?? 10;
+        textColorClass = desgin.textColor ?? textColorClass ;
+        WriteStderr(`listConfig.design.textColor: ${desgin.textColor}, textColorClass: ${textColorClass}`);
     }
     const fontSizePx = `${fontSizeInt}px`;
     if (viewType === VIEW_MODES.LOADING) {
@@ -148,16 +152,17 @@ function App() {
 
         <div
             // className="flex flex-col h-screen overflow-hidden bg-white font-mono"
-            className="
+            className={`
                 flex flex-col h-screen overflow-hidden 
                 bg-white 
-                font-mono text-green-500
-                text-green-900
+                font-mono 
                 antialiased 
                 shadow-2xl 
-                border border-gray-200 rounded-lg"
+                border border-gray-200 rounded-lg
+                `}
             style={{ 
                 fontSize: fontSizePx,
+                color: textColorClass,
                 // color: "#1b4d3e",
                 // color: "#333333",
                 WebkitTextStroke: "4px #ffffff",
