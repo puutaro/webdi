@@ -73,9 +73,10 @@ func (cmd *ListCmd) GetListConfig() ListConfigResponse {
 		Text:       text.TextUnescapeNewlinesTab(cmd.Text.String(false)),
 		List:       strings.Split(cmd.List, "\n"),
 		Design: design.DesignConfig{
-			Borders:   cmd.Design.Borders,
-			FontSize:  cmd.Design.FontSize,
-			FontColor: cmd.Design.FontColorCode.String(),
+			Borders:    cmd.Design.Borders,
+			FontSize:   cmd.Design.FontSize,
+			FontColor:  cmd.Design.FontColorCode.String(),
+			FontFamily: cmd.Design.ConcatAndCompFontFamily(),
 		},
 		Reloads:     reloads,
 		Executes:    executes,

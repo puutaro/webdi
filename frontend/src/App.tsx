@@ -130,16 +130,19 @@ function App() {
     let borderValue = 0;
     let fontSizeInt = 10;
     let fontColorClass = "#134E4A";
+    let fontFamily = "monospace";
     if (viewType === VIEW_MODES.FORM && formConfig) {
         const desgin = formConfig.design
         borderValue = desgin.borders ?? 0;
         fontSizeInt = desgin.fontSize ?? 10;
         fontColorClass = desgin.fontColor ?? fontColorClass;
+        fontFamily = desgin.fontFamily ?? fontFamily;
     } else if (viewType === VIEW_MODES.LIST && listConfig) {
         const desgin = listConfig.design
         borderValue = desgin.borders ?? 0;
         fontSizeInt = desgin.fontSize ?? 10;
         fontColorClass = desgin.fontColor ?? fontColorClass ;
+        fontFamily = desgin.fontFamily ?? fontFamily;
     }
     const fontSizePx = `${fontSizeInt}px`;
     if (viewType === VIEW_MODES.LOADING) {
@@ -150,7 +153,6 @@ function App() {
         // 親要素をひとつにして、全体を縦方向のフレックスボックスにする
 
         <div
-            // className="flex flex-col h-screen overflow-hidden bg-white font-mono"
             className={`
                 flex flex-col h-screen overflow-hidden 
                 bg-white 
@@ -160,6 +162,7 @@ function App() {
                 border border-gray-200 rounded-lg
                 `}
             style={{ 
+                fontFamily: fontFamily,
                 fontSize: fontSizePx,
                 color: fontColorClass,
                 // color: "#1b4d3e",
