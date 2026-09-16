@@ -3,7 +3,7 @@ export namespace design {
 	export class DesignConfig {
 	    borders: number;
 	    fontSize: number;
-	    textColor: string;
+	    fontColor: string;
 	
 	    static createFrom(source: any = {}) {
 	        return new DesignConfig(source);
@@ -13,7 +13,7 @@ export namespace design {
 	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.borders = source["borders"];
 	        this.fontSize = source["fontSize"];
-	        this.textColor = source["textColor"];
+	        this.fontColor = source["fontColor"];
 	    }
 	}
 

@@ -11,12 +11,12 @@ import (
 type Design struct {
 	Borders       int       `arg:"--borders" default:"10" help:"padding for component"`
 	FontSize      int       `arg:"--font-size" default:"10" help:"font size"`
-	TextColorCode TextColor `arg:"--text-color" default:"#134E4A" help:"text color:colo code or hex string"`
+	FontColorCode TextColor `arg:"--font-color" default:"#0f413d" help:"font color:colo code or hex string"`
 }
 type DesignConfig struct {
 	Borders   int    `json:"borders"`
 	FontSize  int    `json:"fontSize"`
-	TextColor string `json:"textColor"`
+	FontColor string `json:"fontColor"`
 }
 
 type TextColor string

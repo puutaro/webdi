@@ -94,7 +94,7 @@ func (cmd *FormCmd) GetFormConfig() FormConfigResponse {
 		Design: design.DesignConfig{
 			Borders:   cmd.Design.Borders,
 			FontSize:  cmd.Design.FontSize,
-			TextColor: cmd.Design.TextColorCode.String(),
+			FontColor: cmd.Design.FontColorCode.String(),
 		},
 		ItemSeparator: cmd.ItemSeparator,
 		Separator:     cmd.Separator,

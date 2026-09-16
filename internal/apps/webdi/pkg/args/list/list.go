@@ -75,7 +75,7 @@ func (cmd *ListCmd) GetListConfig() ListConfigResponse {
 		Design: design.DesignConfig{
 			Borders:   cmd.Design.Borders,
 			FontSize:  cmd.Design.FontSize,
-			TextColor: cmd.Design.TextColorCode.String(),
+			FontColor: cmd.Design.FontColorCode.String(),
 		},
 		Reloads:     reloads,
 		Executes:    executes,
