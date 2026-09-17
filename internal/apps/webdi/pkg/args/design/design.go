@@ -9,23 +9,23 @@ import (
 )
 
 type Design struct {
-	Borders       int       `arg:"--borders" default:"10" help:"padding for component"`
-	FontSize      int       `arg:"--font-size" default:"10" help:"font size"`
-	FontColorCode TextColor `arg:"--font-color" default:"#0f413d" help:"font color:colo code or hex string"`
-	FontFamily    []string  `arg:"--font-family,separate" help:"font family"`
+	Borders       int             `arg:"--borders" default:"10" help:"padding for component"`
+	FontSize      int             `arg:"--font-size" default:"10" help:"font size"`
+	FontColorCode FontColor       `arg:"--font-color" default:"#0f413d" help:"font color:colo code or hex string"`
+	FontFamily    FontFamilySlice `arg:"--font-family,separate" help:"font family"`
 }
 type DesignConfig struct {
-	Borders    int    `json:"borders"`
-	FontSize   int    `json:"fontSize"`
-	FontColor  string `json:"fontColor"`
-	FontFamily string `json:"fontFamily"`
+	Borders       int    `json:"borders"`
+	FontSize      int    `json:"fontSize"`
+	FontColor     string `json:"fontColor"`
+	FontFamilyStr string `json:"fontFamily"`
 }
 
-type TextColor string
+type FontColor string
 
-func (b *TextColor) UnmarshalText(text []byte) error {
+func (b *FontColor) UnmarshalText(text []byte) error {
 	if len(text) == 0 {
-		*b = TextColor("")
+		*b = FontColor("")
 		return nil
 	}
 	str := string(bytes.TrimSpace(text))
@@ -35,31 +35,44 @@ func (b *TextColor) UnmarshalText(text []byte) error {
 		if err != nil {
 			return fmt.Errorf("failure to validate hex color: %s", str)
 		}
-		*b = TextColor(hexColorStr)
+		*b = FontColor(hexColorStr)
 		return nil
 	}
 	hexColorStr, err := colortool.GetHexColor(str)
 	if err != nil {
 		return fmt.Errorf("failure to get hex color: %s", str)
 	}
-	*b = TextColor(hexColorStr)
+	*b = FontColor(hexColorStr)
 	return nil
 }
 
-func (b TextColor) String() string {
+func (b FontColor) String() string {
 	return string(b)
 }
 
-func (design *Design) ConcatAndCompFontFamily() string {
+type FontFamily string
+
+func (f *FontFamily) UnmarshalText(text []byte) error {
+	str := string(bytes.TrimSpace(text))
+	// 例: 空文字のチェックや、特定のフォーマット検証・加工を行う場合
+	if len(str) == 0 {
+		return fmt.Errorf("font family cannot be empty")
+	}
+	*f = FontFamily(str)
+	return nil
+}
+
+type FontFamilySlice []FontFamily
+
+func (fs FontFamilySlice) ConcatAndCompFontFamily() string {
 	const defaultFontFamily = `ui-monospace, SFMono-Regular, ` +
 		`Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace`
-	fontFamilyArgs := design.FontFamily
-	if len(fontFamilyArgs) == 0 {
+	if len(fs) == 0 {
 		return defaultFontFamily
 	}
-	fontFamilyList := make([]string, len(fontFamilyArgs))
-	for i, fontFamily := range fontFamilyArgs {
-		fontFamilyList[i] = fmt.Sprintf(`"%s"`, strings.TrimSpace(fontFamily))
+	fontFamilyList := make([]string, len(fs))
+	for i, fontFamily := range fs {
+		fontFamilyList[i] = fmt.Sprintf(`"%s"`, strings.TrimSpace(string(fontFamily)))
 	}
 	return strings.Join(fontFamilyList, ", ") + `, ` + defaultFontFamily
 }
