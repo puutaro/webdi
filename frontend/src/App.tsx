@@ -131,18 +131,24 @@ function App() {
     let fontSizeInt = 10;
     let fontColorClass = "#134E4A";
     let fontFamily = "monospace";
+    let fontStrokeWidth = 0.15;
+    let fontStrokeColor = "#ffffff";
     if (viewType === VIEW_MODES.FORM && formConfig) {
         const desgin = formConfig.design
         borderValue = desgin.borders ?? 0;
         fontSizeInt = desgin.fontSize ?? 10;
         fontColorClass = desgin.fontColor ?? fontColorClass;
         fontFamily = desgin.fontFamily ?? fontFamily;
+        fontStrokeWidth = desgin.fontStrokeWidth ?? fontStrokeWidth;
+        fontStrokeColor = desgin.fontStrokeColor ?? fontStrokeColor;
     } else if (viewType === VIEW_MODES.LIST && listConfig) {
         const desgin = listConfig.design
         borderValue = desgin.borders ?? 0;
         fontSizeInt = desgin.fontSize ?? 10;
         fontColorClass = desgin.fontColor ?? fontColorClass ;
         fontFamily = desgin.fontFamily ?? fontFamily;
+        fontStrokeWidth = desgin.fontStrokeWidth ?? fontStrokeWidth;
+        fontStrokeColor = desgin.fontStrokeColor ?? fontStrokeColor;
     }
     const fontSizePx = `${fontSizeInt}px`;
     if (viewType === VIEW_MODES.LOADING) {
@@ -167,7 +173,7 @@ function App() {
                 color: fontColorClass,
                 // color: "#1b4d3e",
                 // color: "#333333",
-                WebkitTextStroke: "0.15em #ffffff",
+                WebkitTextStroke: `${fontStrokeWidth}em ${fontStrokeColor}`,
                 paintOrder: "stroke fill",
                 // WebkitTextStroke: "0.01px #ff4500",
                 // textShadow: "2px 2px 10px #5560fc, -2px -2px 10px #5560fc, 0 0 20px #5560fc",
