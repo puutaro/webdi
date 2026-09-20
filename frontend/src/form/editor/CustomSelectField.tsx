@@ -177,9 +177,9 @@ export const CustomSelectField = ({
                                         break-all leading-normal 
                                         ${
                                     isFocused
-                                        ? 'font-semibold bg-teal-100 text-green-900'
+                                        ? 'font-semibold bg-teal-100'
                                         : isSelected
-                                            ? 'bg-teal-50 text-green-800'
+                                            ? 'bg-teal-50'
                                             : ''
                                 }`}
                                 style={{ padding: `${borderValue}px` }}
