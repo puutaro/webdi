@@ -244,7 +244,7 @@ export const CustomSuggestInput = ({
                                 className={`
                                     cursor-pointer whitespace-normal 
                                     break-all leading-normal ${
-                                    isSelected ? 'bg-teal-100 text-teal-900 font-semibold' : ''
+                                    isSelected ? 'bg-teal-100 font-semibold' : ''
                                 }`}
                                 style={{
                                     fontSize: `${fontSize}px`,
