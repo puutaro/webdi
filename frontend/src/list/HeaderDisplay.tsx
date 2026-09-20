@@ -7,6 +7,7 @@ export type HeaderDisplayProps = {
         nthKey: string
         matchedIndex: number[]
     }[],
+    headerFontColor: string;
     borderValue: number;
 }
 
@@ -14,6 +15,7 @@ export const HeaderDisplay = (
     {
         listItemRefs,
         headerItemObjs,
+        headerFontColor,
         borderValue,
     }: HeaderDisplayProps
 ) => {
@@ -36,12 +38,12 @@ export const HeaderDisplay = (
                         style={{
                             padding: `${borderValue}px`,
                             margin: `calc(${borderValue}px /  2)`,
+                            color: `${headerFontColor}`,
                         }}
-                        className="
+                        className={`
                             rounded select-none list-none break-all
-                            text-teal-600
                             font-semibold
-                            "
+                            `}
                             // text-blue-400
                             // text-gray-500
 

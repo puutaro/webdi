@@ -98,6 +98,7 @@ func (cmd *FormCmd) GetFormConfig() FormConfigResponse {
 			FontFamilyStr:   cmd.Design.FontFamily.ConcatAndCompFontFamily(),
 			FontStrokeWidth: cmd.Design.FontStrokeWidth,
 			FontStrokeColor: cmd.Design.FontStrokeColor.String(),
+			HeaderFontColor: cmd.Design.HeaderFontColorCode.String(),
 		},
 		ItemSeparator: cmd.ItemSeparator,
 		Separator:     cmd.Separator,

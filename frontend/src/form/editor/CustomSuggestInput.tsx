@@ -15,6 +15,7 @@ export type CustomSuggestInputProps = {
     borderValue: number;
     isFirstTarget: boolean,
     firstFocusRef: React.MutableRefObject<HTMLInputElement | HTMLButtonElement | null>
+    headerFontColor: string;
 };
 
 export const CustomSuggestInput = ({
@@ -26,6 +27,7 @@ export const CustomSuggestInput = ({
                                        borderValue,
                                        isFirstTarget,
                                        firstFocusRef,
+                                       headerFontColor,
                                    }: CustomSuggestInputProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const [isAllSelected, setIsAllSelected] = useState(false);
@@ -73,7 +75,10 @@ export const CustomSuggestInput = ({
     }, [historyItems, displayText]);
 
     const filteredObj = useMemo(() => {
-        return renderForFilterText(filtered);
+        return renderForFilterText(
+            filtered,
+            headerFontColor,
+        );
     }, [filtered]);
 
     // サジェストを開く最終条件

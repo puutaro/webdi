@@ -14,7 +14,8 @@ export type RenderedFilterResult = {
 };
 
 export const renderForFilterText = (
-    filterItemOpjs: FilterItemObj[]
+    filterItemOpjs: FilterItemObj[],
+    headerFontColor: string,
 ): RenderedFilterResult[] => {
     return filterItemOpjs.map((obj) => {
         const displayText = obj.nthKey;
@@ -39,9 +40,14 @@ export const renderForFilterText = (
             }
             // ハイライトテキスト
             parts.push(
-                <strong key={i} className="
-                    font-extrabold text-teal-600 
-                    bg-teal-50">
+                <strong key={i} 
+                    className={`
+                        font-extrabold  
+                        bg-teal-50`}
+                    style={{
+                        color: `${headerFontColor}`,
+                    }}
+                >
                     {displayText.substring(matchIdx, matchIdx + 1)}
                 </strong>
             );

@@ -9,12 +9,13 @@ import (
 )
 
 type Design struct {
-	Borders         int             `arg:"--borders" default:"10" help:"padding for component"`
-	FontSize        int             `arg:"--font-size" default:"10" help:"font size"`
-	FontColorCode   FontColor       `arg:"--font-color" default:"#0f413d" help:"font color:colo code or hex string"`
-	FontFamily      FontFamilySlice `arg:"--font-family,separate" help:"font family"`
-	FontStrokeWidth float64         `arg:"--font-stroke-width" default:"0.15" help:"font stroke width by em"`
-	FontStrokeColor FontColor       `arg:"--font-stroke-color" default:"#ffffff" help:"font stroke color:colo code or hex string"`
+	Borders             int             `arg:"--borders" default:"10" help:"padding for component"`
+	FontSize            int             `arg:"--font-size" default:"10" help:"font size"`
+	FontColorCode       FontColor       `arg:"--font-color" default:"#0f413d" help:"font color:color code or hex string"`
+	FontFamily          FontFamilySlice `arg:"--font-family,separate" help:"font family"`
+	FontStrokeWidth     float64         `arg:"--font-stroke-width" default:"0.15" help:"font stroke width by em"`
+	FontStrokeColor     FontColor       `arg:"--font-stroke-color" default:"#ffffff" help:"font stroke color:color code or hex string"`
+	HeaderFontColorCode FontColor       `arg:"--header-font-color" default:"#0d9488" help:"header font color:color code or hex string"`
 }
 type DesignConfig struct {
 	Borders         int     `json:"borders"`
@@ -23,6 +24,7 @@ type DesignConfig struct {
 	FontFamilyStr   string  `json:"fontFamily"`
 	FontStrokeWidth float64 `json:"fontStrokeWidth"`
 	FontStrokeColor string  `json:"fontStrokeColor"`
+	HeaderFontColor string  `json:"headerFontColor"`
 }
 
 type FontColor string

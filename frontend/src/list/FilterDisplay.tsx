@@ -15,6 +15,7 @@ export type FilterDisplayProps = {
     selectedIndex: number; // ★ 現在の選択インデックスを受け取る
     borderValue: number;
     headerLines: number;
+    headerFontColor: string;
 };
 
 export const FilterDisplay = ({
@@ -26,8 +27,12 @@ export const FilterDisplay = ({
                                   selectedIndex,
                                   borderValue,
                                   headerLines,
+                                  headerFontColor,
                               }: FilterDisplayProps) => {
-    const bodyRenderedObjList = renderForFilterText(filterItemOpjs);
+    const bodyRenderedObjList = renderForFilterText(
+        filterItemOpjs,
+        headerFontColor // ★ headerFontColor を渡す
+    );
 
     return (
         <ul className="flex flex-col">

@@ -7,6 +7,7 @@ export namespace design {
 	    fontFamily: string;
 	    fontStrokeWidth: number;
 	    fontStrokeColor: string;
+	    headerFontColor: string;
 	
 	    static createFrom(source: any = {}) {
 	        return new DesignConfig(source);
@@ -20,6 +21,7 @@ export namespace design {
 	        this.fontFamily = source["fontFamily"];
 	        this.fontStrokeWidth = source["fontStrokeWidth"];
 	        this.fontStrokeColor = source["fontStrokeColor"];
+	        this.headerFontColor = source["headerFontColor"];
 	    }
 	}
 

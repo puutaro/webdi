@@ -15,6 +15,7 @@ import { CustomSelectField } from "./editor/CustomSelectField";
 import { is_special_str } from '../libs/is_specaial_str';
 import { KeepConfig } from '../type/keepInfo';
 import { inputEscGuard } from '../libs/input_esc_gaurd';
+import { mapHeaderColor } from '../libs/color_mapper';
 import { WriteStderr } from '../../wailsjs/go/main/App';
 
 export type SuggestHistoryItem = {
@@ -281,6 +282,7 @@ export const FormComponent = ({
                                             borderValue={borderValue}
                                             isFirstTarget={isFirstTarget}
                                             firstFocusRef={firstFocusRef}
+                                            headerFontColor={mapHeaderColor(formConfig?.design?.headerFontColor)}
                                         />
                                     )}
                                     {field.type === 'CB' && (

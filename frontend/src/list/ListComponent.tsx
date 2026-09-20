@@ -7,7 +7,7 @@ import {makeDisplayText} from "./libs/makeDisplayText";
 import {HeaderDisplay} from "./HeaderDisplay";
 import { is_special_str } from '../libs/is_specaial_str';
 import { KeepConfig } from '../type/keepInfo';
-import { inputEscGuard } from '../libs/input_esc_gaurd';
+import { mapHeaderColor } from '../libs/color_mapper';
 
 export type ListComponentProps = {
     listConfig: list.ListConfigResponse | null;
@@ -173,6 +173,7 @@ export const  ListComponent =
                         listItemRefs={listItemRefs}
                         headerItemObjs={headerItemObjs}
                         borderValue={borderValue}
+                        headerFontColor={mapHeaderColor(listConfig?.design?.headerFontColor)}
                     />
                 )}
             </div>
@@ -202,7 +203,11 @@ export const  ListComponent =
                         selectedIndex={selectedIndex}
                         borderValue={borderValue}
                         headerLines={headerLines}
-                    />                )}
+                        headerFontColor={
+                            mapHeaderColor(listConfig?.design.headerFontColor)
+                        }
+                    />                
+                    )}
             </div>
         </div>
         </div>
