@@ -66,6 +66,7 @@ func (cmd *ListCmd) GetListConfig() ListConfigResponse {
 	for i, quitExecStr := range execQuitsSrcList {
 		execQuits[i] = cmd.parseKeyExitShell(quitExecStr)
 	}
+	designArg := cmd.Design
 	return ListConfigResponse{
 		Id:         cmd.Id,
 		WindowIcon: image.ImageToBase64(cmd.WindowIcon),
@@ -73,14 +74,16 @@ func (cmd *ListCmd) GetListConfig() ListConfigResponse {
 		Text:       text.TextUnescapeNewlinesTab(cmd.Text.String(false)),
 		List:       strings.Split(cmd.List, "\n"),
 		Design: design.DesignConfig{
-			Borders:         cmd.Design.Borders,
-			FontSize:        cmd.Design.FontSize,
-			FontColor:       cmd.Design.FontColorCode.String(),
-			FontFamilyStr:   cmd.Design.FontFamily.ConcatAndCompFontFamily(),
-			FontStrokeWidth: cmd.Design.FontStrokeWidth,
-			FontStrokeColor: cmd.Design.FontStrokeColor.String(),
-			HeaderFontColor: cmd.Design.HeaderFontColorCode.String(),
-			StateBgColor:    cmd.Design.StateBackgroundColorCode.MakeStateBgColor(),
+			Borders:         designArg.Borders,
+			FontSize:        designArg.FontSize,
+			FontColor:       designArg.FontColorCode.String(),
+			FontFamilyStr:   designArg.FontFamily.ConcatAndCompFontFamily(),
+			FontStrokeWidth: designArg.FontStrokeWidth,
+			FontStrokeColor: designArg.FontStrokeColor.String(),
+			HeaderFontColor: designArg.HeaderFontColorCode.String(),
+			StateBgColor: designArg.StateBackgroundColorCode.MakeStateBgColor(
+				designArg.ReverseStageBgColor,
+			),
 		},
 		Reloads:     reloads,
 		Executes:    executes,

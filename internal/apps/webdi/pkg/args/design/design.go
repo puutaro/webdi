@@ -17,14 +17,15 @@ type Design struct {
 	FontStrokeColor          ColorCode       `arg:"--font-stroke-color" default:"#ffffff" help:"font stroke color:color code or hex string"`
 	HeaderFontColorCode      ColorCode       `arg:"--header-font-color" default:"#0d9488" help:"header font color:color code or hex string"`
 	StateBackgroundColorCode ColorCode       `arg:"--state-bg-color" default:"#ccfbf1" help:"state background color:color code or hex string"`
+	ReverseStageBgColor      bool            `arg:"--rev-state-bg-color" help:"reverse state background color order"`
 }
 
 type StateBgColor struct {
-	Minus50 string `json:"minus50"`
-	Plus100 string `json:"plus100"`
-	Plus200 string `json:"plus200"`
-	Plus300 string `json:"plus300"`
-	Plus400 string `json:"plus400"`
+	Minus100 string `json:"minus100"`
+	Plus100  string `json:"plus100"`
+	Plus200  string `json:"plus200"`
+	Plus300  string `json:"plus300"`
+	Plus400  string `json:"plus400"`
 }
 type DesignConfig struct {
 	Borders         int          `json:"borders"`
@@ -93,13 +94,22 @@ func (fs FontFamilySlice) ConcatAndCompFontFamily() string {
 	return strings.Join(fontFamilyList, ", ") + `, ` + defaultFontFamily
 }
 
-func (c ColorCode) MakeStateBgColor() StateBgColor {
+func (c ColorCode) MakeStateBgColor(revStateBgOrder bool) StateBgColor {
 	cStr := string(c)
+	if revStateBgOrder {
+		return StateBgColor{
+			Minus100: shiftHexColorByStep(cStr, 100),
+			Plus100:  cStr,
+			Plus200:  shiftHexColorByStep(cStr, -100),
+			Plus300:  shiftHexColorByStep(cStr, -200),
+			Plus400:  shiftHexColorByStep(cStr, -300),
+		}
+	}
 	return StateBgColor{
-		Minus50: shiftHexColorByStep(cStr, -50),
-		Plus100: shiftHexColorByStep(cStr, 100),
-		Plus200: shiftHexColorByStep(cStr, 200),
-		Plus300: shiftHexColorByStep(cStr, 300),
-		Plus400: shiftHexColorByStep(cStr, 400),
+		Minus100: shiftHexColorByStep(cStr, -100),
+		Plus100:  cStr,
+		Plus200:  shiftHexColorByStep(cStr, 100),
+		Plus300:  shiftHexColorByStep(cStr, 200),
+		Plus400:  shiftHexColorByStep(cStr, 300),
 	}
 }

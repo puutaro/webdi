@@ -21,7 +21,7 @@ func shiftHexColorByStep(hexStr string, step int) string {
 
 	// 100ステップにつきどれくらい暗く（明度を下げる）するか係数を設定
 	// 例: 100刻みごとに明度を 0.065 (約6.5%) ずつ引いていく
-	factor := float64(step / 100)
+	factor := float64(step) / 100
 	l -= factor * 0.065
 
 	// 0.0〜1.0の範囲に収める（真っ黒になりすぎないよう下限も考慮）

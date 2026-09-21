@@ -82,7 +82,7 @@ export const CustomSuggestInput = ({
         return renderForFilterText(
             filtered,
             headerFontColor,
-            mapStateBgColor(design?.stateBgColor?.minus50),
+            mapStateBgColor(design?.stateBgColor?.minus100),
         );
     }, [filtered]);
 

@@ -85,6 +85,7 @@ func (cmd *FormCmd) GetFormConfig() FormConfigResponse {
 		)
 	}
 
+	designArg := cmd.Design
 	return FormConfigResponse{
 		Id:         cmd.Id,
 		SubId:      cmd.SubId,
@@ -92,14 +93,14 @@ func (cmd *FormCmd) GetFormConfig() FormConfigResponse {
 		Title:      cmd.Title,
 		Text:       text.TextUnescapeNewlinesTab(cmd.Text.String(false)),
 		Design: design.DesignConfig{
-			Borders:         cmd.Design.Borders,
-			FontSize:        cmd.Design.FontSize,
-			FontColor:       cmd.Design.FontColorCode.String(),
-			FontFamilyStr:   cmd.Design.FontFamily.ConcatAndCompFontFamily(),
-			FontStrokeWidth: cmd.Design.FontStrokeWidth,
-			FontStrokeColor: cmd.Design.FontStrokeColor.String(),
-			HeaderFontColor: cmd.Design.HeaderFontColorCode.String(),
-			StateBgColor:    cmd.Design.StateBackgroundColorCode.MakeStateBgColor(),
+			Borders:         designArg.Borders,
+			FontSize:        designArg.FontSize,
+			FontColor:       designArg.FontColorCode.String(),
+			FontFamilyStr:   designArg.FontFamily.ConcatAndCompFontFamily(),
+			FontStrokeWidth: designArg.FontStrokeWidth,
+			FontStrokeColor: designArg.FontStrokeColor.String(),
+			HeaderFontColor: designArg.HeaderFontColorCode.String(),
+			StateBgColor:    designArg.StateBackgroundColorCode.MakeStateBgColor(designArg.ReverseStageBgColor),
 		},
 		ItemSeparator: cmd.ItemSeparator,
 		Separator:     cmd.Separator,

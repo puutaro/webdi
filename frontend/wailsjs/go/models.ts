@@ -1,7 +1,7 @@
 export namespace design {
 	
 	export class StateBgColor {
-	    minus50: string;
+	    minus100: string;
 	    plus100: string;
 	    plus200: string;
 	    plus300: string;
@@ -13,7 +13,7 @@ export namespace design {
 	
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.minus50 = source["minus50"];
+	        this.minus100 = source["minus100"];
 	        this.plus100 = source["plus100"];
 	        this.plus200 = source["plus200"];
 	        this.plus300 = source["plus300"];

@@ -123,7 +123,7 @@ export const CustomSelectField = ({
             setIsOpen(false);
         }
     };
-    const minus50Color = mapStateBgColor(design?.stateBgColor?.minus50);
+    const minus100Color = mapStateBgColor(design?.stateBgColor?.minus100);
     const plus100Color = mapStateBgColor(design?.stateBgColor?.plus100);
     const plus200Color = mapStateBgColor(design?.stateBgColor?.plus200);
     const plus300Color = mapStateBgColor(design?.stateBgColor?.plus300);
@@ -147,7 +147,7 @@ export const CustomSelectField = ({
                     "
                 style={{ 
                     padding: `${borderValue}px` ,
-                    '--bg-color': `${minus50Color}`,
+                    '--bg-color': `${minus100Color}`,
                     '--hover-bg': `${plus100Color}`,
                     '--active-bg': `${plus200Color}`,
                     '--focus-ring-color' : `${plus400Color}`,
@@ -197,7 +197,7 @@ export const CustomSelectField = ({
                                 style={{ 
                                     padding: `${borderValue}px` ,
                                     '--focus-bg': `${plus100Color}`,
-                                    '--selected-bg': `${minus50Color}`,
+                                    '--selected-bg': `${minus100Color}`,
                                 } as React.CSSProperties}
                             >
                                 {item}

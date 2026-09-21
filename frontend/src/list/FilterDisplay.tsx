@@ -33,7 +33,7 @@ export const FilterDisplay = ({
                                   headerFontColor,
                                   design,
                               }: FilterDisplayProps) => {
-    const plus50Color = mapStateBgColor(design?.stateBgColor?.minus50);
+    const plus50Color = mapStateBgColor(design?.stateBgColor?.minus100);
     const plus100Color = mapStateBgColor(design?.stateBgColor?.plus100);
     const plus200Color = mapStateBgColor(design?.stateBgColor?.plus200);
     const plus300Color = mapStateBgColor(design?.stateBgColor?.plus300);
