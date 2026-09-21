@@ -8,10 +8,13 @@ import {HeaderDisplay} from "./HeaderDisplay";
 import { is_special_str } from '../libs/is_specaial_str';
 import { KeepConfig } from '../type/keepInfo';
 import { mapHeaderColor } from '../libs/color_mapper';
+import { design } from '../../wailsjs/go/models';
+import { mapStateBgColor } from '../libs/color_mapper';
 
 export type ListComponentProps = {
     listConfig: list.ListConfigResponse | null;
     keepConfigRef: React.MutableRefObject<KeepConfig>,
+    design: design.DesignConfig | undefined;
 }
 export const  ListComponent =
     ({
@@ -138,12 +141,19 @@ export const  ListComponent =
                         justEndedComposingRef.current = true;
                     }}
                     className="
-                        border-b border-gray-300 rounded 
+                        border-b 
+                        border-gray-300 rounded 
                         focus:outline-none 
-                        focus:border-teal-900
-                        selection:bg-teal-100
+                        selection:bg-[var(--selection-color)]
+                        focus:border-[var(--focus-border-color)]
                         "
                         // focus:border-green-500
+                    style={{
+                        padding: `${borderValue}px`,
+                        margin: `calc(${borderValue}px / 2)`,
+                        '--selection-color': `${mapStateBgColor(listConfig?.design?.stateBgColor?.plus100)}`,
+                        '--focus-border-color': `${design?.fontColor ?? "#4ade80"}`,
+                    } as React.CSSProperties}
                     onKeyDown={(e) => {
                         onKeyDown({
                             e,
@@ -162,10 +172,6 @@ export const  ListComponent =
                             keepConfig: keepConfigRef.current,
                             justEndedComposingRef: justEndedComposingRef,
                         })
-                    }}
-                    style={{
-                        padding: `${borderValue}px`,
-                        margin: `calc(${borderValue}px / 2)`,
                     }}
                 />                {/* リストのヘッダー行もここで一緒に固定描画 */}
                 {headerItemObjs.length > 0 && (
@@ -206,6 +212,7 @@ export const  ListComponent =
                         headerFontColor={
                             mapHeaderColor(listConfig?.design.headerFontColor)
                         }
+                        design={listConfig?.design}
                     />                
                     )}
             </div>

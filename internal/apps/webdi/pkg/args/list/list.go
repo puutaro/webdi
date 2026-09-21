@@ -80,6 +80,7 @@ func (cmd *ListCmd) GetListConfig() ListConfigResponse {
 			FontStrokeWidth: cmd.Design.FontStrokeWidth,
 			FontStrokeColor: cmd.Design.FontStrokeColor.String(),
 			HeaderFontColor: cmd.Design.HeaderFontColorCode.String(),
+			StateBgColor:    cmd.Design.StateBackgroundColorCode.MakeStateBgColor(),
 		},
 		Reloads:     reloads,
 		Executes:    executes,

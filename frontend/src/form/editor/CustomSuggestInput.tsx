@@ -5,6 +5,8 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { filterListItemObjs } from "../../libs/filer";
 import { renderForFilterText } from "../../libs/renderForFilterText";
 import { is_special_str } from "../../libs/is_specaial_str";
+import { design } from '../../../wailsjs/go/models';
+import { mapStateBgColor } from '../../libs/color_mapper';
 
 export type CustomSuggestInputProps = {
     fieldKey: string;
@@ -16,6 +18,7 @@ export type CustomSuggestInputProps = {
     isFirstTarget: boolean,
     firstFocusRef: React.MutableRefObject<HTMLInputElement | HTMLButtonElement | null>
     headerFontColor: string;
+    design: design.DesignConfig | undefined;
 };
 
 export const CustomSuggestInput = ({
@@ -28,6 +31,7 @@ export const CustomSuggestInput = ({
                                        isFirstTarget,
                                        firstFocusRef,
                                        headerFontColor,
+                                       design,
                                    }: CustomSuggestInputProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const [isAllSelected, setIsAllSelected] = useState(false);
@@ -78,6 +82,7 @@ export const CustomSuggestInput = ({
         return renderForFilterText(
             filtered,
             headerFontColor,
+            mapStateBgColor(design?.stateBgColor?.minus50),
         );
     }, [filtered]);
 
@@ -133,6 +138,10 @@ export const CustomSuggestInput = ({
         return () => clearTimeout(timer);
     }, [selectedSugIndex]);
 
+    const plus100Color = mapStateBgColor(design?.stateBgColor?.plus100);
+    const plus200Color = mapStateBgColor(design?.stateBgColor?.plus200);
+    const plus300Color = mapStateBgColor(design?.stateBgColor?.plus300);
+    const plus400Color = mapStateBgColor(design?.stateBgColor?.plus400);
     return (
         <div ref={containerRef} className="relative w-full">
             <input
@@ -144,11 +153,16 @@ export const CustomSuggestInput = ({
                 autoComplete="off"
                 className="
                     border rounded w-full
-                    active:bg-teal-200 transition-colors 
-                    selection:bg-teal-100
-                    focus:outline-none focus:ring-2 
-                    focus:ring-teal-400
+                    transition-colors 
+                    input-text
                 "
+                style={{
+                    padding: `${borderValue}px`,
+                    fontSize: `${fontSize}px`,
+                    '--selection-bg': `${plus100Color}`,
+                    '--active-bg': `${plus200Color}`,
+                    '--focus-ring-color' : `${plus400Color}`,
+                } as React.CSSProperties}
                 value={displayText}
                 onFocus={(e) => {
                     handleSelect(e);
@@ -210,17 +224,17 @@ export const CustomSuggestInput = ({
                     return;
                 }
             }}
-                style={{
-                    padding: `${borderValue}px`,
-                    fontSize: `${fontSize}px`,
-                }}
             />
 
             {/* サジェストドロップダウン */}
             {shouldShowSuggest && (
                 <ul
                     ref={listRef}
-                    className={`absolute z-50 left-0 right-0 bg-white border rounded shadow-lg overflow-y-auto py-1 ${
+                    className={`
+                        absolute z-50 left-0 right-0 
+                        bg-white border rounded 
+                        shadow-lg overflow-y-auto 
+                        py-1 ${
                         dropPosition === 'up' ? 'bottom-full mb-1' : 'top-full mt-1'
                     }`}
                     style={{
@@ -249,12 +263,13 @@ export const CustomSuggestInput = ({
                                 className={`
                                     cursor-pointer whitespace-normal 
                                     break-all leading-normal ${
-                                    isSelected ? 'bg-teal-100 font-semibold' : ''
+                                    isSelected ? 'selected-bg font-semibold' : ''
                                 }`}
                                 style={{
                                     fontSize: `${fontSize}px`,
                                     padding: `${borderValue}px`,
-                                }}
+                                    '--selected-bg': `${plus100Color}`,
+                                } as React.CSSProperties}
                             >
                                 {obj.renderedContent}
                             </li>

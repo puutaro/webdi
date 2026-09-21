@@ -1,6 +1,7 @@
 import { form } from '../../../wailsjs/go/models';
 import { KeepConfig } from '../../type/keepInfo';
 import {SuggestHistoryItem} from "../FormComponent";
+import {mapStateBgColor} from "../../libs/color_mapper";
 
 export type BottomButtonProps = {
   borderValue: number;
@@ -38,6 +39,11 @@ export const BottomButton = ({
         const label = btn.label || "";
         const firstChar = label.charAt(0);
         const restChars = label.slice(1);
+        const design = formConfig.design;
+        const plus100Color = mapStateBgColor(design?.stateBgColor?.plus100);
+        const plus200Color = mapStateBgColor(design?.stateBgColor?.plus200);
+        const plus300Color = mapStateBgColor(design?.stateBgColor?.plus300);
+        const plus400Color = mapStateBgColor(design?.stateBgColor?.plus400);
 
         return (
         <button
@@ -53,17 +59,17 @@ export const BottomButton = ({
             )}
             className="
               border rounded 
-              bg-teal-100 
-              hover:bg-teal-200 
-              active:bg-teal-300 
-              focus:outline-none focus:ring-2 
-              focus:ring-teal-400
               shadow-sm
+              dynamic-button
               "
             style={{ 
                 padding: `${borderValue}px`, 
                 fontSize: "1em",
-            }}
+                '--bg-color': `${plus100Color}`,
+                '--hover-bg': `${plus200Color}`,
+                '--active-bg': `${plus300Color}`,
+                '--focus-ring-color' : `${plus400Color}`,
+            } as React.CSSProperties}
         >
             {isAltPressed && firstChar ? (
             <>

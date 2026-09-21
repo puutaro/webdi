@@ -16,6 +16,7 @@ export type RenderedFilterResult = {
 export const renderForFilterText = (
     filterItemOpjs: FilterItemObj[],
     headerFontColor: string,
+    plus50Color: string,
 ): RenderedFilterResult[] => {
     return filterItemOpjs.map((obj) => {
         const displayText = obj.nthKey;
@@ -43,10 +44,12 @@ export const renderForFilterText = (
                 <strong key={i} 
                     className={`
                         font-extrabold  
-                        bg-teal-50`}
+                        bg-color`
+                    }
                     style={{
                         color: `${headerFontColor}`,
-                    }}
+                        '--bg-color': `${plus50Color}`,
+                    } as React.CSSProperties}
                 >
                     {displayText.substring(matchIdx, matchIdx + 1)}
                 </strong>

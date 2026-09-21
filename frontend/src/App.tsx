@@ -207,6 +207,7 @@ function App() {
                         <ListComponent
                             listConfig={listConfig}
                             keepConfigRef={keepConfigRef}
+                            design={listConfig?.design}
                         />
                     )}
                 </div>

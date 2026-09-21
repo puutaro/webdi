@@ -2,6 +2,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { form } from '../../../wailsjs/go/models';
 import { WriteStderr } from '../../../wailsjs/go/main/App';
+import { design } from '../../../wailsjs/go/models';
+import { mapStateBgColor } from '../../libs/color_mapper';
 
 export type CustomSelectFieldProps = {
     field: form.FieldDef;
@@ -11,6 +13,7 @@ export type CustomSelectFieldProps = {
     borderValue: number;
     isFirstTarget: boolean;
     firstFocusRef: React.MutableRefObject<HTMLInputElement | HTMLButtonElement | null>;
+    design: design.DesignConfig | undefined;
 };
 
 export const CustomSelectField = ({
@@ -21,6 +24,7 @@ export const CustomSelectField = ({
                                       borderValue,
                                       isFirstTarget,
                                       firstFocusRef,
+                                      design,
                                   }: CustomSelectFieldProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedIndex, setSelectedIndex] = useState<number>(-1);
@@ -119,7 +123,11 @@ export const CustomSelectField = ({
             setIsOpen(false);
         }
     };
-
+    const minus50Color = mapStateBgColor(design?.stateBgColor?.minus50);
+    const plus100Color = mapStateBgColor(design?.stateBgColor?.plus100);
+    const plus200Color = mapStateBgColor(design?.stateBgColor?.plus200);
+    const plus300Color = mapStateBgColor(design?.stateBgColor?.plus300);
+    const plus400Color = mapStateBgColor(design?.stateBgColor?.plus400);
     return (
         <div ref={containerRef} className="relative w-full">
             <button
@@ -134,12 +142,16 @@ export const CustomSelectField = ({
                 className="
                     w-full border rounded text-left 
                     flex justify-between items-center 
-                    bg-teal-50 hover:bg-teal-100 
-                    active:bg-teal-200 transition-colors 
-                    focus:outline-none focus:ring-2 
-                    focus:ring-teal-400
+                    transition-colors 
+                    dynamic-button
                     "
-                style={{ padding: `${borderValue}px` }}
+                style={{ 
+                    padding: `${borderValue}px` ,
+                    '--bg-color': `${minus50Color}`,
+                    '--hover-bg': `${plus100Color}`,
+                    '--active-bg': `${plus200Color}`,
+                    '--focus-ring-color' : `${plus400Color}`,
+                } as React.CSSProperties}
             >
                 <span>{currentValue}</span>
                 <span className="ml-2">▼</span>
@@ -177,12 +189,16 @@ export const CustomSelectField = ({
                                         break-all leading-normal 
                                         ${
                                     isFocused
-                                        ? 'font-semibold bg-teal-100'
+                                        ? 'font-semibold focus-bg'
                                         : isSelected
-                                            ? 'bg-teal-50'
+                                            ? 'selected-bg'
                                             : ''
                                 }`}
-                                style={{ padding: `${borderValue}px` }}
+                                style={{ 
+                                    padding: `${borderValue}px` ,
+                                    '--focus-bg': `${plus100Color}`,
+                                    '--selected-bg': `${minus50Color}`,
+                                } as React.CSSProperties}
                             >
                                 {item}
                             </li>

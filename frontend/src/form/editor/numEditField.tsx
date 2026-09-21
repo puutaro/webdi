@@ -2,6 +2,8 @@ import { useRef, useEffect } from 'react';
 import { form } from '../../../wailsjs/go/models';
 import { inputEscGuard } from '../../libs/input_esc_gaurd';
 import { is_special_str } from '../../libs/is_specaial_str';
+import { design } from '../../../wailsjs/go/models';
+import { mapStateBgColor } from '../../libs/color_mapper';
 
 export type NumSelectFieldProps = {
   field: form.FieldDef;
@@ -11,6 +13,7 @@ export type NumSelectFieldProps = {
   borderValue: number;
   isFirstTarget: boolean;
   firstFocusRef: React.MutableRefObject<HTMLInputElement | HTMLButtonElement | null>;
+  design: design.DesignConfig | undefined;
 };
 
 export const NumEditField = ({
@@ -21,7 +24,13 @@ export const NumEditField = ({
   borderValue,
   isFirstTarget,
   firstFocusRef,
+  design,
 }: NumSelectFieldProps) => {
+  const plus50Color = mapStateBgColor(design?.stateBgColor?.minus50);
+  const plus100Color = mapStateBgColor(design?.stateBgColor?.plus100);
+  const plus200Color = mapStateBgColor(design?.stateBgColor?.plus200);
+  const plus300Color = mapStateBgColor(design?.stateBgColor?.plus300);
+  const plus400Color = mapStateBgColor(design?.stateBgColor?.plus400);
   const numSeparator = '!';
   const parts = (field.srcValue || "").split(numSeparator);
   const rangePart = parts[1] || "";
@@ -114,8 +123,17 @@ export const NumEditField = ({
         onKeyDown={(e) => {
           inputEscGuard(e);
         }}
-        className="border rounded-l rounded-r-none flex-1 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none text-right"
-        style={{ padding: `${borderValue}px` }}
+        className="
+          border rounded-l rounded-r-none 
+          flex-1 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none 
+          text-right
+          input-text"
+        style={{ 
+          padding: `${borderValue}px` ,
+          '--selection-bg': `${plus100Color}`,
+          '--active-bg': `${plus200Color}`,
+          '--focus-ring-color' : `${plus400Color}`,
+        } as React.CSSProperties}
       />
       <button
         type="button"
@@ -127,15 +145,16 @@ export const NumEditField = ({
         onMouseLeave={stopHold}
         className="
           border-t border-b border-r 
-          bg-teal-50 
-          focus:outline-none focus:ring-2 
-          focus:ring-teal-400
-          hover:bg-teal-100 
-          active:bg-teal-200 
-          select-none"
+          select-none
+          dynamic-button
+          "
         style={{ 
-          padding: `${borderValue}px`
-       }}
+          padding: `${borderValue}px`,
+          '--bg-color': `${plus50Color}`,
+          '--hover-bg': `${plus100Color}`,
+          '--active-bg': `${plus200Color}`,
+          '--focus-ring-color' : `${plus400Color}`,
+       } as React.CSSProperties}
       >
         -
       </button>
@@ -149,13 +168,16 @@ export const NumEditField = ({
         onMouseLeave={stopHold}
         className="
           border-t border-b border-r rounded-r 
-          bg-teal-50 
-          focus:outline-none focus:ring-2 
-          focus:ring-teal-400
-          hover:bg-teal-100 
-          active:bg-teal-200 select-none
+          select-none
+          dynamic-button
           "
-        style={{ padding: `${borderValue}px` }}
+        style={{ 
+          padding: `${borderValue}px`,
+          '--bg-color': `${plus50Color}`,
+          '--hover-bg': `${plus100Color}`,
+          '--active-bg': `${plus200Color}`,
+          '--focus-ring-color' : `${plus400Color}`,
+       } as React.CSSProperties}
       >
         +
       </button>

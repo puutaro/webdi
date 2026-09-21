@@ -99,6 +99,7 @@ func (cmd *FormCmd) GetFormConfig() FormConfigResponse {
 			FontStrokeWidth: cmd.Design.FontStrokeWidth,
 			FontStrokeColor: cmd.Design.FontStrokeColor.String(),
 			HeaderFontColor: cmd.Design.HeaderFontColorCode.String(),
+			StateBgColor:    cmd.Design.StateBackgroundColorCode.MakeStateBgColor(),
 		},
 		ItemSeparator: cmd.ItemSeparator,
 		Separator:     cmd.Separator,

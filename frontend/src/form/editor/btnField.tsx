@@ -1,5 +1,7 @@
 import { form } from '../../../wailsjs/go/models';
 import { RunCmd } from '../../../wailsjs/go/main/App';
+import { design } from '../../../wailsjs/go/models';
+import { mapStateBgColor } from '../../libs/color_mapper';
 
 export type BtnFieldProps = {
   field: form.FieldDef,
@@ -8,6 +10,7 @@ export type BtnFieldProps = {
   borderValue: number;
   isFirstTarget: boolean,
   firstFocusRef: React.MutableRefObject<HTMLInputElement | HTMLButtonElement | null>
+  design: design.DesignConfig | undefined;
 }
 
 export const BtnField = ({ 
@@ -17,7 +20,12 @@ export const BtnField = ({
   borderValue,
   isFirstTarget,
   firstFocusRef,
+  design,
 }: BtnFieldProps) => {
+  const plus100Color = mapStateBgColor(design?.stateBgColor?.plus100);
+  const plus200Color = mapStateBgColor(design?.stateBgColor?.plus200);
+  const plus300Color = mapStateBgColor(design?.stateBgColor?.plus300);
+  const plus400Color = mapStateBgColor(design?.stateBgColor?.plus400);
   return (
     <button
       ref={isFirstTarget ? (el) => { firstFocusRef.current = el; } : undefined}
@@ -33,16 +41,16 @@ export const BtnField = ({
       }}
       className="
         border rounded 
-        bg-teal-100 
-        hover:bg-teal-200 
-        active:bg-teal-300 
-        focus:outline-none focus:ring-2 
-        focus:ring-teal-400
+        dynamic-button
       "
       style={{ 
         padding: `${borderValue}px`,
         textAlign: 'center',
-        }}
+        '--bg-color': `${plus100Color}`,
+        '--hover-bg': `${plus200Color}`,
+        '--active-bg': `${plus300Color}`,
+        '--focus-ring-color' : `${plus400Color}`,
+      } as React.CSSProperties}
     >
     {field.label}
     </button>

@@ -1,6 +1,8 @@
 import { outputLineByHidden } from "./libs/outputLineByHidden";
 import { renderForFilterText } from "../libs/renderForFilterText";
 import { KeepConfig } from "../type/keepInfo";
+import { design } from '../../wailsjs/go/models';
+import { mapStateBgColor } from '../libs/color_mapper';
 
 export type FilterDisplayProps = {
     keepConfigRef: React.MutableRefObject<KeepConfig>,
@@ -16,6 +18,7 @@ export type FilterDisplayProps = {
     borderValue: number;
     headerLines: number;
     headerFontColor: string;
+    design: design.DesignConfig | undefined;
 };
 
 export const FilterDisplay = ({
@@ -28,12 +31,18 @@ export const FilterDisplay = ({
                                   borderValue,
                                   headerLines,
                                   headerFontColor,
+                                  design,
                               }: FilterDisplayProps) => {
+    const plus50Color = mapStateBgColor(design?.stateBgColor?.minus50);
+    const plus100Color = mapStateBgColor(design?.stateBgColor?.plus100);
+    const plus200Color = mapStateBgColor(design?.stateBgColor?.plus200);
+    const plus300Color = mapStateBgColor(design?.stateBgColor?.plus300);
+    const plus400Color = mapStateBgColor(design?.stateBgColor?.plus400);
     const bodyRenderedObjList = renderForFilterText(
         filterItemOpjs,
-        headerFontColor // ★ headerFontColor を渡す
+        headerFontColor,
+        plus50Color,
     );
-
     return (
         <ul className="flex flex-col">
             {bodyRenderedObjList.map((obj, bodyIndex) => {
@@ -49,8 +58,13 @@ export const FilterDisplay = ({
                         className={`
                             rounded cursor-pointer border-transparent break-all 
                             font-semibold
-                            ${ isSelected ? "bg-teal-100 border-gray-400 font-semibold" : ""
+                            ${ isSelected ? "border-gray-400 font-semibold" : ""
                         }`}
+                        style={{
+                            padding: `${borderValue}px`,
+                            margin: `calc(${borderValue}px / 2)`,
+                            backgroundColor: isSelected ? plus100Color : 'transparent',
+                        } as React.CSSProperties}
                             // bg-gray-100
                             // text-teal-600
                         onMouseDown={(e) => {
@@ -64,10 +78,6 @@ export const FilterDisplay = ({
                                 obj.lineKey ?? "",
                                 keepConfigRef.current,
                             );
-                        }}
-                        style={{
-                            padding: `${borderValue}px`,
-                            margin: `calc(${borderValue}px / 2)`,
                         }}
                     >
                         {obj.renderedContent}

@@ -15,7 +15,7 @@ import { CustomSelectField } from "./editor/CustomSelectField";
 import { is_special_str } from '../libs/is_specaial_str';
 import { KeepConfig } from '../type/keepInfo';
 import { inputEscGuard } from '../libs/input_esc_gaurd';
-import { mapHeaderColor } from '../libs/color_mapper';
+import { mapHeaderColor, mapStateBgColor } from '../libs/color_mapper';
 import { WriteStderr } from '../../wailsjs/go/main/App';
 
 export type SuggestHistoryItem = {
@@ -189,6 +189,10 @@ export const FormComponent = ({
     const titlePadding = (design?.borders ?? 0 * 110) / 100;
     const labelFontSize = (fontSize * 3) / 4;
     const borderValue = design?.borders ?? 10;
+    const plus100Color = mapStateBgColor(design?.stateBgColor?.plus100);
+    const plus200Color = mapStateBgColor(design?.stateBgColor?.plus200);
+    const plus300Color = mapStateBgColor(design?.stateBgColor?.plus300);
+    const plus400Color = mapStateBgColor(design?.stateBgColor?.plus400);
 
     return (
         <div
@@ -262,14 +266,16 @@ export const FormComponent = ({
                                             }}
                                             className="
                                                 border rounded
-                                                active:bg-teal-200 transition-colors 
-                                                selection:bg-teal-100
-                                                focus:outline-none focus:ring-2 
-                                                focus:ring-teal-400
+                                                transition-colors 
+                                                input-text
                                                 "
                                             style={{ 
-                                                padding: `${borderValue}px` 
-                                            }}
+                                                padding: `${borderValue}px`,
+                                                '--selection-bg': `${plus100Color}`,
+                                                '--active-bg': `${plus200Color}`,
+                                                '--focus-ring-color' : `${plus400Color}`,
+
+                                            } as React.CSSProperties}
                                         />
                                     )}
                                     {field.type === 'STXT' && (
@@ -283,6 +289,7 @@ export const FormComponent = ({
                                             isFirstTarget={isFirstTarget}
                                             firstFocusRef={firstFocusRef}
                                             headerFontColor={mapHeaderColor(formConfig?.design?.headerFontColor)}
+                                            design={design}
                                         />
                                     )}
                                     {field.type === 'CB' && (
@@ -294,6 +301,7 @@ export const FormComponent = ({
                                             borderValue={borderValue}
                                             isFirstTarget={isFirstTarget}
                                             firstFocusRef={firstFocusRef}
+                                            design={design}
                                         />
                                     )}
                                     {['BTN', 'FBTN'].includes(field.type) && (
@@ -304,6 +312,7 @@ export const FormComponent = ({
                                             borderValue={borderValue}
                                             isFirstTarget={isFirstTarget}
                                             firstFocusRef={firstFocusRef}
+                                            design={design}
                                         />
                                     )}
                                     {['DIR', 'MDIR', 'CDIR'].includes(field.type) && (
@@ -315,6 +324,7 @@ export const FormComponent = ({
                                             borderValue={borderValue}
                                             isFirstTarget={isFirstTarget}
                                             firstFocusRef={firstFocusRef}
+                                            design={design}
                                         />
                                     )}
                                     {['FL', 'MFL', 'SFL'].includes(field.type) && (
@@ -326,6 +336,7 @@ export const FormComponent = ({
                                             borderValue={borderValue}
                                             isFirstTarget={isFirstTarget}
                                             firstFocusRef={firstFocusRef}
+                                            design={design}
                                         />
                                     )}
                                     {field.type === 'LBL' && (
@@ -345,6 +356,7 @@ export const FormComponent = ({
                                             borderValue={borderValue}
                                             isFirstTarget={isFirstTarget}
                                             firstFocusRef={firstFocusRef}
+                                            design={design}
                                         />
                                     )}
                                 </div>

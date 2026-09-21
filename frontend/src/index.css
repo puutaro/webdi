@@ -1,3 +1,46 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.bg-color {
+  background-color: var(--bg-color);
+}
+.hover-bg {
+  background-color: var(--hover-bg);
+}
+.active-bg {
+  background-color: var(--active-bg);
+}
+.selected-bg {
+  background-color: var(--selected-bg);
+}
+.focus-bg {
+  background-color: var(--focus-bg);
+}
+.dynamic-button {
+  background-color: var(--bg-color);
+}
+.dynamic-button:hover {
+  background-color: var(--hover-bg);
+}
+.dynamic-button:active {
+  background-color: var(--active-bg);
+}
+.dynamic-button:focus {
+  outline: none;
+  /* Tailwindの ring-2 と同じ太さ（2px）のリングをCSSの box-shadow で表現 */
+  box-shadow: 0 0 0 2px var(--focus-ring-color);
+}
+.input-text {
+    background-color: var(--bg-color);
+}
+.input-text:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--focus-ring-color);
+}
+.input-text:active {
+    background-color: var(--active-bg);
+}
+.input-text::selection {
+    background-color: var(--selection-bg);
+}

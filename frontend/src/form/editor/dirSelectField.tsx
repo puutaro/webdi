@@ -2,6 +2,9 @@ import { form } from '../../../wailsjs/go/models';
 import { SelectDir } from '../../../wailsjs/go/main/App';
 import { is_special_str } from '../../libs/is_specaial_str';
 import { inputEscGuard } from '../../libs/input_esc_gaurd';
+import { design } from '../../../wailsjs/go/models';
+import { mapStateBgColor } from '../../libs/color_mapper';
+
 
 export type DirSelectFieldProps = {
   field: form.FieldDef,
@@ -11,6 +14,7 @@ export type DirSelectFieldProps = {
   borderValue: number;
   isFirstTarget: boolean,
   firstFocusRef: React.MutableRefObject<HTMLInputElement | HTMLButtonElement | null>
+  design: design.DesignConfig | undefined;
 }
 
 export const DirSelectField = ({ 
@@ -21,7 +25,13 @@ export const DirSelectField = ({
   borderValue,
   isFirstTarget,
   firstFocusRef,
+  design
 }: DirSelectFieldProps) => {
+  const plus50Color = mapStateBgColor(design?.stateBgColor?.minus50);
+  const plus100Color = mapStateBgColor(design?.stateBgColor?.plus100);
+  const plus200Color = mapStateBgColor(design?.stateBgColor?.plus200);
+  const plus300Color = mapStateBgColor(design?.stateBgColor?.plus300);
+  const plus400Color = mapStateBgColor(design?.stateBgColor?.plus400);
   return (
     <div className="flex flex-col" style={{ paddingBottom: `${borderValue}px` }}>
       <div className="flex items-center space-x-2">
@@ -44,10 +54,16 @@ export const DirSelectField = ({
           onKeyDown={(e) => {
               inputEscGuard(e)
           }}
-          className="border rounded flex-1"
+          className="
+            border rounded flex-1
+            input-text
+            "
           style={{ 
-            padding: `${borderValue}px` 
-          }}
+            padding: `${borderValue}px` ,
+            '--selection-bg': `${plus100Color}`,
+            '--active-bg': `${plus200Color}`,
+            '--focus-ring-color' : `${plus400Color}`,
+          } as React.CSSProperties}
         />
         <button
           type="button"
@@ -57,13 +73,16 @@ export const DirSelectField = ({
           }}
           className="
             border rounded 
-            bg-teal-100 
-            hover:bg-teal-200 
-            active:bg-teal-300 
-            focus:outline-none focus:ring-2 
-            focus:ring-teal-400
-            px-3 py-1"
-          style={{ padding: `${borderValue}px` }}
+            px-3 py-1
+            dynamic-button
+            "
+          style={{ 
+            padding: `${borderValue}px`,
+            '--bg-color': `${plus100Color}`,
+            '--hover-bg': `${plus200Color}`,
+            '--active-bg': `${plus300Color}`,
+            '--focus-ring-color' : `${plus400Color}`,
+           } as React.CSSProperties}
         >
           dir...
         </button>

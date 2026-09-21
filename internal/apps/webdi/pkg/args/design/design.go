@@ -9,29 +9,39 @@ import (
 )
 
 type Design struct {
-	Borders             int             `arg:"--borders" default:"10" help:"padding for component"`
-	FontSize            int             `arg:"--font-size" default:"10" help:"font size"`
-	FontColorCode       FontColor       `arg:"--font-color" default:"#0f413d" help:"font color:color code or hex string"`
-	FontFamily          FontFamilySlice `arg:"--font-family,separate" help:"font family"`
-	FontStrokeWidth     float64         `arg:"--font-stroke-width" default:"0.15" help:"font stroke width by em"`
-	FontStrokeColor     FontColor       `arg:"--font-stroke-color" default:"#ffffff" help:"font stroke color:color code or hex string"`
-	HeaderFontColorCode FontColor       `arg:"--header-font-color" default:"#0d9488" help:"header font color:color code or hex string"`
+	Borders                  int             `arg:"--borders" default:"10" help:"padding for component"`
+	FontSize                 int             `arg:"--font-size" default:"10" help:"font size"`
+	FontColorCode            ColorCode       `arg:"--font-color" default:"#0f413d" help:"font color:color code or hex string"`
+	FontFamily               FontFamilySlice `arg:"--font-family,separate" help:"font family"`
+	FontStrokeWidth          float64         `arg:"--font-stroke-width" default:"0.15" help:"font stroke width by em"`
+	FontStrokeColor          ColorCode       `arg:"--font-stroke-color" default:"#ffffff" help:"font stroke color:color code or hex string"`
+	HeaderFontColorCode      ColorCode       `arg:"--header-font-color" default:"#0d9488" help:"header font color:color code or hex string"`
+	StateBackgroundColorCode ColorCode       `arg:"--state-bg-color" default:"#ccfbf1" help:"state background color:color code or hex string"`
+}
+
+type StateBgColor struct {
+	Minus50 string `json:"minus50"`
+	Plus100 string `json:"plus100"`
+	Plus200 string `json:"plus200"`
+	Plus300 string `json:"plus300"`
+	Plus400 string `json:"plus400"`
 }
 type DesignConfig struct {
-	Borders         int     `json:"borders"`
-	FontSize        int     `json:"fontSize"`
-	FontColor       string  `json:"fontColor"`
-	FontFamilyStr   string  `json:"fontFamily"`
-	FontStrokeWidth float64 `json:"fontStrokeWidth"`
-	FontStrokeColor string  `json:"fontStrokeColor"`
-	HeaderFontColor string  `json:"headerFontColor"`
+	Borders         int          `json:"borders"`
+	FontSize        int          `json:"fontSize"`
+	FontColor       string       `json:"fontColor"`
+	FontFamilyStr   string       `json:"fontFamily"`
+	FontStrokeWidth float64      `json:"fontStrokeWidth"`
+	FontStrokeColor string       `json:"fontStrokeColor"`
+	HeaderFontColor string       `json:"headerFontColor"`
+	StateBgColor    StateBgColor `json:"stateBgColor"`
 }
 
-type FontColor string
+type ColorCode string
 
-func (b *FontColor) UnmarshalText(text []byte) error {
+func (b *ColorCode) UnmarshalText(text []byte) error {
 	if len(text) == 0 {
-		*b = FontColor("")
+		*b = ColorCode("")
 		return nil
 	}
 	str := string(bytes.TrimSpace(text))
@@ -41,18 +51,18 @@ func (b *FontColor) UnmarshalText(text []byte) error {
 		if err != nil {
 			return fmt.Errorf("failure to validate hex color: %s", str)
 		}
-		*b = FontColor(hexColorStr)
+		*b = ColorCode(hexColorStr)
 		return nil
 	}
 	hexColorStr, err := colortool.GetHexColor(str)
 	if err != nil {
 		return fmt.Errorf("failure to get hex color: %s", str)
 	}
-	*b = FontColor(hexColorStr)
+	*b = ColorCode(hexColorStr)
 	return nil
 }
 
-func (b FontColor) String() string {
+func (b ColorCode) String() string {
 	return string(b)
 }
 
@@ -81,4 +91,15 @@ func (fs FontFamilySlice) ConcatAndCompFontFamily() string {
 		fontFamilyList[i] = fmt.Sprintf(`"%s"`, strings.TrimSpace(string(fontFamily)))
 	}
 	return strings.Join(fontFamilyList, ", ") + `, ` + defaultFontFamily
+}
+
+func (c ColorCode) MakeStateBgColor() StateBgColor {
+	cStr := string(c)
+	return StateBgColor{
+		Minus50: shiftHexColorByStep(cStr, -50),
+		Plus100: shiftHexColorByStep(cStr, 100),
+		Plus200: shiftHexColorByStep(cStr, 200),
+		Plus300: shiftHexColorByStep(cStr, 300),
+		Plus400: shiftHexColorByStep(cStr, 400),
+	}
 }
