@@ -21,6 +21,7 @@ var colorMap = map[string]string{
 	"dbrown": "#572b07",
 	"black":  "#000000",
 	"white":  "#ffffff",
+	"trans":  "#00000000",
 }
 
 func GetHexColor(colorCode string) (string, error) {
@@ -40,9 +41,10 @@ func ValidateHexColor(color string) (string, error) {
 		start = 1
 	}
 
-	// 長さは 3桁(#なし) / 4桁(#あり) / 6桁(#なし) / 7桁(#あり) のいずれか
+	// 長さは 3桁(#なし+3), 6桁(#なし+6), 8桁(#なし+8) のいずれか
+	// （#がある場合はそれぞれ全体で 4, 7, 9文字になる）
 	length := len(color) - start
-	if length != 3 && length != 6 {
+	if length != 3 && length != 6 && length != 8 {
 		return "", fmt.Errorf("invalid hex color length: %q", color)
 	}
 

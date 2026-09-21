@@ -8,8 +8,7 @@ import (
 )
 
 // ShiftHexColorByStep は、指定したHexカラーに対し、
-// Tailwindのステップ（例: +100 ごとに明度を下げて暗くする）に応じて暗いHexカラーを返す関数
-// step: 100, 200, 300 など（100あたり約 0.07 ほど明度を下げる調整例）
+// Tailwindのステップに応じて暗いHexカラーを返す関数（アルファ値も保持）
 func shiftHexColorByStep(hexStr string, step int) string {
 	rgba, err := parseHexColor(hexStr)
 	if err != nil {
@@ -20,11 +19,10 @@ func shiftHexColorByStep(hexStr string, step int) string {
 	h, s, l := rgbToHSL(rgba.R, rgba.G, rgba.B)
 
 	// 100ステップにつきどれくらい暗く（明度を下げる）するか係数を設定
-	// 例: 100刻みごとに明度を 0.065 (約6.5%) ずつ引いていく
-	factor := float64(step) / 100
+	factor := float64(step / 100)
 	l -= factor * 0.065
 
-	// 0.0〜1.0の範囲に収める（真っ黒になりすぎないよう下限も考慮）
+	// 0.0〜1.0の範囲に収める
 	if l < 0.05 {
 		l = 0.05
 	}
@@ -32,33 +30,48 @@ func shiftHexColorByStep(hexStr string, step int) string {
 		l = 1
 	}
 
-	newRGBA := hslToRGB(h, s, l)
+	newRGBA := hslToRGB(h, s, l, rgba.A)
 	return rgbaToHex(newRGBA)
 }
 
-// Hexをパースしてcolor.RGBAに変換するヘルパー
+// Hexをパースしてcolor.RGBAに変換するヘルパー（6桁 `#RRGGBB` と 8桁 `#RRGGBBAA` に対応）
 func parseHexColor(s string) (color.RGBA, error) {
 	if len(s) > 0 && s[0] == '#' {
 		s = s[1:]
 	}
-	if len(s) != 6 {
-		return color.RGBA{}, fmt.Errorf("invalid hex length")
+
+	var rgb uint64
+	var err error
+	alpha := uint8(255) // デフォルトは不透明
+
+	if len(s) == 6 {
+		rgb, err = strconv.ParseUint(s, 16, 32)
+		if err != nil {
+			return color.RGBA{}, err
+		}
+	} else if len(s) == 8 {
+		// 8桁の場合（RRGGBBAA）
+		rgbAndAlpha, err := strconv.ParseUint(s, 16, 64)
+		if err != nil {
+			return color.RGBA{}, err
+		}
+		rgb = rgbAndAlpha >> 8
+		alpha = uint8(rgbAndAlpha & 0xFF)
+	} else {
+		return color.RGBA{}, fmt.Errorf("invalid hex length: expected 6 or 8 characters")
 	}
-	rgb, err := strconv.ParseUint(s, 16, 32)
-	if err != nil {
-		return color.RGBA{}, err
-	}
+
 	return color.RGBA{
 		R: uint8(rgb >> 16),
 		G: uint8((rgb >> 8) & 0xFF),
 		B: uint8(rgb & 0xFF),
-		A: 255,
+		A: alpha,
 	}, nil
 }
 
-// RGBAをHex文字列に戻すヘルパー
+// RGBAをHex文字列に戻すヘルパー（常に 8桁 `#RRGGBBAA` で出力）
 func rgbaToHex(c color.RGBA) string {
-	return fmt.Sprintf("#%02x%02x%02x", c.R, c.G, c.B)
+	return fmt.Sprintf("#%02x%02x%02x%02x", c.R, c.G, c.B, c.A)
 }
 
 // RGBをHSLに変換する簡易関数
@@ -111,8 +124,8 @@ func rgbToHSL(r, g, b uint8) (float64, float64, float64) {
 	return h, s, l
 }
 
-// HSLをRGBに変換する簡易関数
-func hslToRGB(h, s, l float64) color.RGBA {
+// HSLとアルファ値をRGBに戻す関数
+func hslToRGB(h, s, l float64, alpha uint8) color.RGBA {
 	var r, g, b float64
 	if s == 0 {
 		r, g, b = l, l, l
@@ -132,7 +145,7 @@ func hslToRGB(h, s, l float64) color.RGBA {
 		R: uint8(r*255.0 + 0.5),
 		G: uint8(g*255.0 + 0.5),
 		B: uint8(b*255.0 + 0.5),
-		A: 255,
+		A: alpha,
 	}
 }
 
