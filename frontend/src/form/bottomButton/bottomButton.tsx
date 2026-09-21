@@ -41,6 +41,7 @@ export const BottomButton = ({
         const firstChar = label.charAt(0);
         const restChars = label.slice(1);
         const design = formConfig.design;
+        const fontColor = design.fontColor ?? "";
         const plus100Color = mapStateBgColor(design?.stateBgColor?.plus100);
         const plus200Color = mapStateBgColor(design?.stateBgColor?.plus200);
         const plus300Color = mapStateBgColor(design?.stateBgColor?.plus300);
@@ -75,7 +76,7 @@ export const BottomButton = ({
             <>
                 <span 
                 style={{ 
-                    borderBottom: "0.1em solid currentColor",
+                    borderBottom: `0.1em solid ${fontColor}`,
                     paddingBottom: "0.05em", 
                 }}>
                 {firstChar}
