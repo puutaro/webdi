@@ -2,6 +2,7 @@ import { form } from '../../../wailsjs/go/models';
 import { KeepConfig } from '../../type/keepInfo';
 import {SuggestHistoryItem} from "../FormComponent";
 import {mapStateBgColor} from "../../libs/color_mapper";
+import { WriteStderr } from '../../../wailsjs/go/main/App';
 
 export type BottomButtonProps = {
   borderValue: number;
@@ -44,7 +45,6 @@ export const BottomButton = ({
         const plus200Color = mapStateBgColor(design?.stateBgColor?.plus200);
         const plus300Color = mapStateBgColor(design?.stateBgColor?.plus300);
         const plus400Color = mapStateBgColor(design?.stateBgColor?.plus400);
-
         return (
         <button
             key={idx}
@@ -73,7 +73,13 @@ export const BottomButton = ({
         >
             {isAltPressed && firstChar ? (
             <>
-                <span className="underline">{firstChar}</span>
+                <span 
+                style={{ 
+                    borderBottom: "0.1em solid currentColor",
+                    paddingBottom: "0.05em", 
+                }}>
+                {firstChar}
+                </span>
                 {restChars}
             </>
             ) : (
