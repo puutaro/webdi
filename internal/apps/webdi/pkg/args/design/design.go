@@ -18,6 +18,7 @@ type Design struct {
 	HeaderFontColorCode      ColorCode       `arg:"--header-font-color" default:"#0d9488" help:"header font color:color code or hex string"`
 	StateBackgroundColorCode ColorCode       `arg:"--state-bg-color" default:"#ccfbf1" help:"state background color:color code or hex string"`
 	ReverseStageBgColor      bool            `arg:"--rev-state-bg-color" help:"reverse state background color order"`
+	Background               BackgroundSlice `arg:"--background,separate" help:"background color or image"`
 }
 
 type StateBgColor struct {
@@ -28,14 +29,54 @@ type StateBgColor struct {
 	Plus400  string `json:"plus400"`
 }
 type DesignConfig struct {
-	Borders         int          `json:"borders"`
-	FontSize        int          `json:"fontSize"`
-	FontColor       string       `json:"fontColor"`
-	FontFamilyStr   string       `json:"fontFamily"`
-	FontStrokeWidth float64      `json:"fontStrokeWidth"`
-	FontStrokeColor string       `json:"fontStrokeColor"`
-	HeaderFontColor string       `json:"headerFontColor"`
-	StateBgColor    StateBgColor `json:"stateBgColor"`
+	Borders          int          `json:"borders"`
+	FontSize         int          `json:"fontSize"`
+	FontColor        string       `json:"fontColor"`
+	FontFamilyStr    string       `json:"fontFamily"`
+	FontStrokeWidth  float64      `json:"fontStrokeWidth"`
+	FontStrokeColor  string       `json:"fontStrokeColor"`
+	HeaderFontColor  string       `json:"headerFontColor"`
+	StateBgColor     StateBgColor `json:"stateBgColor"`
+	Background       string       `json:"background"`
+	PocketBackground string       `json:"pocketBackground"`
+}
+
+type BackgroundEl string
+type BackgroundSlice []BackgroundEl
+
+func (b *BackgroundEl) UnmarshalText(text []byte) error {
+	str := string(bytes.TrimSpace(text))
+	// 例: 空文字のチェックや、特定のフォーマット検証・加工を行う場合
+	if len(str) == 0 {
+		return fmt.Errorf("font family cannot be empty")
+	}
+	*b = BackgroundEl(str)
+	return nil
+}
+func (bs BackgroundSlice) Concat() string {
+	if len(bs) == 0 {
+		const defaultBgColor = `#ffffff`
+		return defaultBgColor
+	}
+	bgList := make([]string, len(bs))
+	for i, bgEl := range bs {
+		bgList[i] = fmt.Sprintf(`"%s"`, strings.TrimSpace(string(bgEl)))
+	}
+	return strings.Join(bgList, ", ")
+}
+func (bs BackgroundSlice) PocketColor() string {
+	const defaultBgColor = `#ffffff`
+	if len(bs) == 0 {
+		return defaultBgColor
+	}
+	for _, bgEl := range bs {
+		bgElStr := fmt.Sprintf(`"%s"`, strings.TrimSpace(string(bgEl)))
+		if !strings.Contains(bgElStr, "-gradient") {
+			continue
+		}
+		return bgElStr
+	}
+	return defaultBgColor
 }
 
 type ColorCode string
@@ -68,6 +109,7 @@ func (b ColorCode) String() string {
 }
 
 type FontFamily string
+type FontFamilySlice []FontFamily
 
 func (f *FontFamily) UnmarshalText(text []byte) error {
 	str := string(bytes.TrimSpace(text))
@@ -78,8 +120,6 @@ func (f *FontFamily) UnmarshalText(text []byte) error {
 	*f = FontFamily(str)
 	return nil
 }
-
-type FontFamilySlice []FontFamily
 
 func (fs FontFamilySlice) ConcatAndCompFontFamily() string {
 	const defaultFontFamily = `ui-monospace, SFMono-Regular, ` +

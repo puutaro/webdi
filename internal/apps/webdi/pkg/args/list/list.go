@@ -84,6 +84,8 @@ func (cmd *ListCmd) GetListConfig() ListConfigResponse {
 			StateBgColor: designArg.StateBackgroundColorCode.MakeStateBgColor(
 				designArg.ReverseStageBgColor,
 			),
+			Background:       designArg.Background.Concat(),
+			PocketBackground: designArg.Background.PocketColor(),
 		},
 		Reloads:     reloads,
 		Executes:    executes,

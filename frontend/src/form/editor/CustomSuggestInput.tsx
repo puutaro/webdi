@@ -232,7 +232,8 @@ export const CustomSuggestInput = ({
                     ref={listRef}
                     className={`
                         absolute z-50 left-0 right-0 
-                        bg-white border rounded 
+                        bg-white 
+                        border rounded 
                         shadow-lg overflow-y-auto 
                         py-1 ${
                         dropPosition === 'up' ? 'bottom-full mb-1' : 'top-full mt-1'

@@ -162,7 +162,8 @@ export const CustomSelectField = ({
                 <ul 
                     className="
                         absolute z-50 left-0 right-0 mt-1 
-                        bg-white border rounded 
+                        bg-white 
+                        border rounded 
                         shadow-lg max-h-60 
                         overflow-y-auto py-1
                     ">

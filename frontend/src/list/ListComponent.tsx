@@ -104,7 +104,10 @@ export const  ListComponent =
                 }}
             >
             <div
-                className="flex-shrink-0 bg-white z-10 w-full flex flex-col box-border"
+                className="
+                    flex-shrink-0 
+                    z-10 w-full flex flex-col 
+                    box-border"
             >
                 {listConfig?.text && (
                     <h1

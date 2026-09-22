@@ -35,7 +35,7 @@ export const BottomButton = ({
   keepConfigRef,
 }: BottomButtonProps) => {
   return (
-    <div className="flex justify-end space-x-2 pt-4 border-t mt-2 flex-shrink-0 bg-white">
+    <div className="flex justify-end space-x-2 pt-4 border-t mt-2 flex-shrink-0">
     {formConfig.buttons?.map((btn, idx) => {
         const label = btn.label || "";
         const firstChar = label.charAt(0);
