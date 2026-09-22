@@ -5,7 +5,7 @@ import {
     GetFormConfig,
     GetListConfig, GetWindowInfo, WriteStderr, WriteStdout,
 } from '../wailsjs/go/main/App';
-import {form, list, network} from '../wailsjs/go/models'
+import {design, form, list, network} from '../wailsjs/go/models'
 import { FormComponent } from './form/FormComponent';
 import { ListComponent } from './list/ListComponent';
 import { CustomHeader } from "./header/CustomHeader";
@@ -133,35 +133,33 @@ function App() {
     let fontFamily = "monospace";
     let fontStrokeWidth = 0.15;
     let fontStrokeColor = "#ffffff";
-    if (viewType === VIEW_MODES.FORM && formConfig) {
-        const desgin = formConfig.design
-        borderValue = desgin.borders ?? 0;
-        fontSizeInt = desgin.fontSize ?? 10;
-        fontColorClass = desgin.fontColor ?? fontColorClass;
-        fontFamily = desgin.fontFamily ?? fontFamily;
-        fontStrokeWidth = desgin.fontStrokeWidth ?? fontStrokeWidth;
-        fontStrokeColor = desgin.fontStrokeColor ?? fontStrokeColor;
-    } else if (viewType === VIEW_MODES.LIST && listConfig) {
-        const desgin = listConfig.design
-        borderValue = desgin.borders ?? 0;
-        fontSizeInt = desgin.fontSize ?? 10;
-        fontColorClass = desgin.fontColor ?? fontColorClass ;
-        fontFamily = desgin.fontFamily ?? fontFamily;
-        fontStrokeWidth = desgin.fontStrokeWidth ?? fontStrokeWidth;
-        fontStrokeColor = desgin.fontStrokeColor ?? fontStrokeColor;
+    let background = "#ffffff"
+    let desgin = null
+    switch (true) {
+    case (viewType === VIEW_MODES.FORM && formConfig != null):
+       desgin = formConfig?.design
+        break;
+    case (viewType === VIEW_MODES.LIST && listConfig != null):
+        desgin = listConfig?.design
+        break;
     }
+    borderValue = desgin?.borders ?? 0;
+    fontSizeInt = desgin?.fontSize ?? 10;
+    fontColorClass = desgin?.fontColor ?? fontColorClass ;
+    fontFamily = desgin?.fontFamily ?? fontFamily;
+    fontStrokeWidth = desgin?.fontStrokeWidth ?? fontStrokeWidth;
+    fontStrokeColor = desgin?.fontStrokeColor ?? fontStrokeColor;
+    background = desgin?.background ?? "";
     const fontSizePx = `${fontSizeInt}px`;
     if (viewType === VIEW_MODES.LOADING) {
         return <div className="p-8 text-center">Loading...</div>;
     }
-
     return (
         // 親要素をひとつにして、全体を縦方向のフレックスボックスにする
 
         <div
             className={`
                 flex flex-col h-screen overflow-hidden 
-                bg-white 
                 antialiased 
                 shadow-2xl 
                 border border-gray-200 rounded-lg
@@ -174,6 +172,7 @@ function App() {
                 // color: "#333333",
                 WebkitTextStroke: `${fontStrokeWidth}em ${fontStrokeColor}`,
                 paintOrder: "stroke fill",
+                background: `${background}`,
                 // WebkitTextStroke: "0.01px #ff4500",
                 // textShadow: "2px 2px 10px #5560fc, -2px -2px 10px #5560fc, 0 0 20px #5560fc",
                 // textShadow: "0 0 10px #5560fc, 0 0 20px #5560fc",

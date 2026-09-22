@@ -128,6 +128,7 @@ export const CustomSelectField = ({
     const plus200Color = mapStateBgColor(design?.stateBgColor?.plus200);
     const plus300Color = mapStateBgColor(design?.stateBgColor?.plus300);
     const plus400Color = mapStateBgColor(design?.stateBgColor?.plus400);
+    const pocketBackground = design?.pocketBackground ?? ""
     return (
         <div ref={containerRef} className="relative w-full">
             <button
@@ -162,11 +163,14 @@ export const CustomSelectField = ({
                 <ul 
                     className="
                         absolute z-50 left-0 right-0 mt-1 
-                        bg-white 
                         border rounded 
                         shadow-lg max-h-60 
                         overflow-y-auto py-1
-                    ">
+                    "
+                    style={{
+                        background: `${pocketBackground}`,
+                    }}
+                    >
                     {items.map((item, index) => {
                         const isFocused = index === selectedIndex;
                         const isSelected = item === currentValue;

@@ -142,6 +142,7 @@ export const CustomSuggestInput = ({
     const plus200Color = mapStateBgColor(design?.stateBgColor?.plus200);
     const plus300Color = mapStateBgColor(design?.stateBgColor?.plus300);
     const plus400Color = mapStateBgColor(design?.stateBgColor?.plus400);
+    const pocketBackground = design?.pocketBackground ?? ""
     return (
         <div ref={containerRef} className="relative w-full">
             <input
@@ -232,7 +233,6 @@ export const CustomSuggestInput = ({
                     ref={listRef}
                     className={`
                         absolute z-50 left-0 right-0 
-                        bg-white 
                         border rounded 
                         shadow-lg overflow-y-auto 
                         py-1 ${
@@ -240,6 +240,7 @@ export const CustomSuggestInput = ({
                     }`}
                     style={{
                         maxHeight: `${sgMaxHeight}px`,
+                        background: `${pocketBackground}`,
                     }}
                 >
                     {filteredObj.map((obj, index) => {

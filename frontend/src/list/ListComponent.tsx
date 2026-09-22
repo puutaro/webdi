@@ -94,6 +94,7 @@ export const  ListComponent =
         const justEndedComposingRef = useRef(false);
         const design = listConfig?.design;
         const borderValue = design?.borders ?? 10;
+        const pocketBackgound = design?.pocketBackground ?? ""
         return (
             <div
                 id="list-view"
@@ -156,6 +157,7 @@ export const  ListComponent =
                         margin: `calc(${borderValue}px / 2)`,
                         '--selection-color': `${mapStateBgColor(listConfig?.design?.stateBgColor?.plus100)}`,
                         '--focus-border-color': `${design?.fontColor ?? "#4ade80"}`,
+                        background: `${pocketBackgound}`,
                     } as React.CSSProperties}
                     onKeyDown={(e) => {
                         onKeyDown({

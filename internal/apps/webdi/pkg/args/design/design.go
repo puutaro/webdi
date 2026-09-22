@@ -58,9 +58,16 @@ func (bs BackgroundSlice) Concat() string {
 		const defaultBgColor = `#ffffff`
 		return defaultBgColor
 	}
-	bgList := make([]string, len(bs))
-	for i, bgEl := range bs {
-		bgList[i] = fmt.Sprintf(`"%s"`, strings.TrimSpace(string(bgEl)))
+	var bgList []string
+	for _, bgEl := range bs {
+		bgElStr := strings.TrimSpace(string(bgEl))
+		if bgElStr == "" {
+			continue
+		}
+		bgList = append(
+			bgList,
+			bgElStr,
+		)
 	}
 	return strings.Join(bgList, ", ")
 }
@@ -70,7 +77,7 @@ func (bs BackgroundSlice) PocketColor() string {
 		return defaultBgColor
 	}
 	for _, bgEl := range bs {
-		bgElStr := fmt.Sprintf(`"%s"`, strings.TrimSpace(string(bgEl)))
+		bgElStr := fmt.Sprintf(`%s`, strings.TrimSpace(string(bgEl)))
 		if !strings.Contains(bgElStr, "-gradient") {
 			continue
 		}
