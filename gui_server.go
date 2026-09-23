@@ -10,11 +10,77 @@ import (
 	// goruntime "runtime"
 
 	"github.com/fstanis/screenresolution"
+	"github.com/puutaro/webdi/internal/apps/webdi/pkg/args"
+	"github.com/puutaro/webdi/internal/apps/webdi/pkg/args/image"
 	"github.com/puutaro/webdi/internal/apps/webdi/pkg/args/list"
 	"github.com/puutaro/webdi/internal/apps/webdi/pkg/network"
 	"github.com/puutaro/webdi/internal/apps/webdi/pkg/windowtool"
+	"github.com/wailsapp/wails/v2"
+	"github.com/wailsapp/wails/v2/pkg/options"
+	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
+	"github.com/wailsapp/wails/v2/pkg/options/linux"
+	"github.com/wailsapp/wails/v2/pkg/options/mac"
+	"github.com/wailsapp/wails/v2/pkg/options/windows"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
+
+func startsGui(appConfig *args.AppConfig) error {
+	windowConfig := appConfig.WindowConfig
+	// Create an instance of the app structure
+	app := NewApp(
+		appConfig,
+	)
+	r, g, b, _ := getWallRgb(*appConfig)
+	image.ApplyMacAppIcon(app.WindowIconBytes)
+	// Create application with options
+	err := wails.Run(&options.App{
+		Title: windowConfig.Title,
+		Windows: &windows.Options{
+			DisableWindowIcon: false,
+		},
+		Linux: &linux.Options{
+			Icon:                app.WindowIconBytes,
+			WindowIsTranslucent: false,
+		},
+		Mac: &mac.Options{
+			TitleBar:             mac.TitleBarHidden(),
+			Appearance:           mac.NSAppearanceNameAqua,
+			WebviewIsTransparent: false,
+			WindowIsTranslucent:  false,
+			// macOSに「通常の最前面アプリ」として認識させ、起動時に後ろに回るのを防ぐ
+			About: &mac.AboutInfo{
+				Title: windowConfig.Title,
+				Icon:  app.WindowIconBytes,
+			},
+		},
+		Width:  windowConfig.Width,
+		Height: windowConfig.Height,
+		AssetServer: &assetserver.Options{
+			Assets: assets,
+		},
+		// ★ 遅延と背面隠れの主因となる Frameless（枠なし）を false（標準ウィンドウ）に修正
+		Frameless:        true,
+		BackgroundColour: &options.RGBA{R: r, G: g, B: b, A: 1},
+		OnStartup:        app.startup,
+		OnBeforeClose:    app.sendAllQuitSignal,
+		Bind: []interface{}{
+			app,
+		},
+	})
+	return err
+}
+
+func getWallRgb(
+	appConfig args.AppConfig,
+) (uint8, uint8, uint8, float64) {
+	switch {
+	case appConfig.FormCmd != nil:
+		return appConfig.FormCmd.Design.Background.GetWallColor()
+	case appConfig.ListCmd != nil:
+		return appConfig.ListCmd.Design.Background.GetWallColor()
+	}
+	return 255, 255, 255, 1
+}
 
 func (app *App) startGuiServer(
 	ctx context.Context,

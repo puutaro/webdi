@@ -94,6 +94,8 @@ export const  ListComponent =
         const justEndedComposingRef = useRef(false);
         const design = listConfig?.design;
         const borderValue = design?.borders ?? 10;
+        const shadowSize = (design?.fontStrokeWidth ?? 0.1) * 0.6
+        const fontStrokeColor = design?.fontStrokeColor ?? "#ffffff"
         const pocketBackgound = design?.pocketBackground ?? ""
         return (
             <div
@@ -147,6 +149,7 @@ export const  ListComponent =
                     className="
                         border-b 
                         border-gray-300 rounded 
+                        shadow-[0_var(--shadow-size,0.1em)_0_0_var(--shadow-color,white)]
                         focus:outline-none 
                         selection:bg-[var(--selection-color)]
                         focus:border-[var(--focus-border-color)]
@@ -157,6 +160,8 @@ export const  ListComponent =
                         margin: `calc(${borderValue}px / 2)`,
                         '--selection-color': `${mapStateBgColor(listConfig?.design?.stateBgColor?.plus100)}`,
                         '--focus-border-color': `${design?.fontColor ?? "#4ade80"}`,
+                        '--shadow-size': `${shadowSize}em`,
+                        '--shadow-color': `${fontStrokeColor}`,
                         background: `${pocketBackgound}`,
                     } as React.CSSProperties}
                     onKeyDown={(e) => {

@@ -8,15 +8,8 @@ import (
 	"strings"
 
 	"github.com/puutaro/webdi/internal/apps/webdi/pkg/args"
-	"github.com/puutaro/webdi/internal/apps/webdi/pkg/args/image"
 	"github.com/puutaro/webdi/internal/apps/webdi/pkg/guiproc"
 	"github.com/puutaro/webdi/internal/apps/webdi/pkg/network"
-	"github.com/wailsapp/wails/v2"
-	"github.com/wailsapp/wails/v2/pkg/options"
-	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
-	"github.com/wailsapp/wails/v2/pkg/options/linux"
-	"github.com/wailsapp/wails/v2/pkg/options/mac"
-	"github.com/wailsapp/wails/v2/pkg/options/windows"
 )
 
 const (
@@ -111,48 +104,4 @@ func main() {
 			appConfig.ListCmd,
 		),
 	)
-}
-
-func startsGui(appConfig *args.AppConfig) error {
-	windowConfig := appConfig.WindowConfig
-	// Create an instance of the app structure
-	app := NewApp(
-		appConfig,
-	)
-	image.ApplyMacAppIcon(app.WindowIconBytes)
-	// Create application with options
-	err := wails.Run(&options.App{
-		Title: windowConfig.Title,
-		Windows: &windows.Options{
-			DisableWindowIcon: false,
-		},
-		Linux: &linux.Options{
-			Icon: app.WindowIconBytes,
-		},
-		Mac: &mac.Options{
-			TitleBar:             mac.TitleBarHidden(),
-			Appearance:           mac.NSAppearanceNameAqua,
-			WebviewIsTransparent: false,
-			WindowIsTranslucent:  false,
-			// macOSに「通常の最前面アプリ」として認識させ、起動時に後ろに回るのを防ぐ
-			About: &mac.AboutInfo{
-				Title: windowConfig.Title,
-				Icon:  app.WindowIconBytes,
-			},
-		},
-		Width:  windowConfig.Width,
-		Height: windowConfig.Height,
-		AssetServer: &assetserver.Options{
-			Assets: assets,
-		},
-		// ★ 遅延と背面隠れの主因となる Frameless（枠なし）を false（標準ウィンドウ）に修正
-		Frameless:        true,
-		BackgroundColour: &options.RGBA{R: 255, G: 255, B: 255, A: 255},
-		OnStartup:        app.startup,
-		OnBeforeClose:    app.sendAllQuitSignal,
-		Bind: []interface{}{
-			app,
-		},
-	})
-	return err
 }

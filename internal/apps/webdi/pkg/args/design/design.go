@@ -76,14 +76,45 @@ func (bs BackgroundSlice) PocketColor() string {
 	if len(bs) == 0 {
 		return defaultBgColor
 	}
+	var bgList []string
 	for _, bgEl := range bs {
 		bgElStr := fmt.Sprintf(`%s`, strings.TrimSpace(string(bgEl)))
 		if !strings.Contains(bgElStr, "-gradient") {
 			continue
 		}
-		return bgElStr
+		bgList = append(bgList, bgElStr)
 	}
-	return defaultBgColor
+	if len(bgList) == 0 {
+		return defaultBgColor
+	}
+	return bgList[len(bgList)-1]
+}
+func (bs BackgroundSlice) GetWallColor() (uint8, uint8, uint8, float64) {
+	if len(bs) == 0 {
+		return 255, 255, 255, 1
+	}
+	var bgList []string
+	for _, bgEl := range bs {
+		bgElStr := fmt.Sprintf(`%s`, strings.TrimSpace(string(bgEl)))
+		if !strings.Contains(bgElStr, "-gradient") {
+			continue
+		}
+		bgList = append(bgList, bgElStr)
+	}
+	if len(bgList) == 0 {
+		return 255, 255, 255, 1
+	}
+	lastGradientStr := bgList[len(bgList)-1]
+	hexList := filterByTransparency(
+		extractHexColors(lastGradientStr),
+		"F0",
+	)
+	if len(hexList) == 0 {
+		return 255, 255, 255, 1
+	}
+	return hexToRGBA(
+		hexList[len(hexList)-1],
+	)
 }
 
 type ColorCode string
