@@ -8,8 +8,15 @@ import (
 )
 
 // ShiftHexColorByStep は、指定したHexカラーに対し、
-// Tailwindのステップに応じて暗いHexカラーを返す関数（アルファ値も保持）
+// Tailwindのステップに応じて暗いHexカラーを返す関数（6桁・8桁に対応、アルファ値保持）
 func shiftHexColorByStep(hexStr string, step int) string {
+	// 入力が6桁か8桁（またはそれ以上）かを判定するためにプレフィックスの#を除外して長さを確認
+	cleanHex := hexStr
+	if len(cleanHex) > 0 && cleanHex[0] == '#' {
+		cleanHex = cleanHex[1:]
+	}
+	is8Digits := len(cleanHex) == 8
+
 	rgba, err := parseHexColor(hexStr)
 	if err != nil {
 		os.Stderr.WriteString(fmt.Sprintf("Error parsing hex color: %v\n", err))
@@ -18,8 +25,8 @@ func shiftHexColorByStep(hexStr string, step int) string {
 
 	h, s, l := rgbToHSL(rgba.R, rgba.G, rgba.B)
 
-	// 100ステップにつきどれくらい暗く（明度を下げる）するか係数を設定
-	factor := float64(step / 100)
+	// 整数除算のバグを修正し、正しく小数点で計算できるようにする
+	factor := float64(step) / 100.0
 	l -= factor * 0.065
 
 	// 0.0〜1.0の範囲に収める
@@ -31,7 +38,7 @@ func shiftHexColorByStep(hexStr string, step int) string {
 	}
 
 	newRGBA := hslToRGB(h, s, l, rgba.A)
-	return rgbaToHex(newRGBA)
+	return rgbaToHex(newRGBA, is8Digits)
 }
 
 // Hexをパースしてcolor.RGBAに変換するヘルパー（6桁 `#RRGGBB` と 8桁 `#RRGGBBAA` に対応）
@@ -69,9 +76,12 @@ func parseHexColor(s string) (color.RGBA, error) {
 	}, nil
 }
 
-// RGBAをHex文字列に戻すヘルパー（常に 8桁 `#RRGGBBAA` で出力）
-func rgbaToHex(c color.RGBA) string {
-	return fmt.Sprintf("#%02x%02x%02x%02x", c.R, c.G, c.B, c.A)
+// RGBAをHex文字列に戻すヘルパー（入力に合わせて6桁または8桁で出力）
+func rgbaToHex(c color.RGBA, is8Digits bool) string {
+	if is8Digits {
+		return fmt.Sprintf("#%02x%02x%02x%02x", c.R, c.G, c.B, c.A)
+	}
+	return fmt.Sprintf("#%02x%02x%02x", c.R, c.G, c.B)
 }
 
 // RGBをHSLに変換する簡易関数

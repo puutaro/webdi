@@ -100,8 +100,8 @@ func (cmd *FormCmd) GetFormConfig() FormConfigResponse {
 			FontStrokeWidth: designArg.FontStrokeWidth,
 			FontStrokeColor: designArg.FontStrokeColor.String(),
 			HeaderFontColor: designArg.HeaderFontColorCode.String(),
-			StateBgColor: designArg.StateBackgroundColorCode.MakeStateBgColor(
-				designArg.ReverseStageBgColor,
+			StateBg: designArg.StateBackground.MakeStateBgColor(
+				designArg.ReverseStageBg,
 			),
 			Background:       designArg.Background.Concat(),
 			PocketBackground: designArg.Background.PocketColor(),

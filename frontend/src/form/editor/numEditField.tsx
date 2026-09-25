@@ -28,9 +28,10 @@ export const NumEditField = ({
 }: NumSelectFieldProps) => {
   const plus50Color = mapStateBgColor(design?.stateBgColor?.minus100);
   const plus100Color = mapStateBgColor(design?.stateBgColor?.plus100);
+  const selectionColor = mapStateBgColor(design?.stateBgColor?.selectionColor);
   const plus200Color = mapStateBgColor(design?.stateBgColor?.plus200);
   const plus300Color = mapStateBgColor(design?.stateBgColor?.plus300);
-  const plus400Color = mapStateBgColor(design?.stateBgColor?.plus400);
+  const focusRingColor = mapStateBgColor(design?.stateBgColor?.focusRingColor);
   const numSeparator = '!';
   const parts = (field.srcValue || "").split(numSeparator);
   const rangePart = parts[1] || "";
@@ -130,9 +131,9 @@ export const NumEditField = ({
           input-text"
         style={{ 
           padding: `${borderValue}px` ,
-          '--selection-bg': `${plus100Color}`,
+          '--selection-bg': `${selectionColor}`,
           '--active-bg': `${plus200Color}`,
-          '--focus-ring-color' : `${plus400Color}`,
+          '--focus-ring-color' : `${focusRingColor}`,
         } as React.CSSProperties}
       />
       <button
@@ -153,7 +154,7 @@ export const NumEditField = ({
           '--bg-color': `${plus50Color}`,
           '--hover-bg': `${plus100Color}`,
           '--active-bg': `${plus200Color}`,
-          '--focus-ring-color' : `${plus400Color}`,
+          '--focus-ring-color' : `${focusRingColor}`,
        } as React.CSSProperties}
       >
         -
@@ -176,7 +177,7 @@ export const NumEditField = ({
           '--bg-color': `${plus50Color}`,
           '--hover-bg': `${plus100Color}`,
           '--active-bg': `${plus200Color}`,
-          '--focus-ring-color' : `${plus400Color}`,
+          '--focus-ring-color' : `${focusRingColor}`,
        } as React.CSSProperties}
       >
         +

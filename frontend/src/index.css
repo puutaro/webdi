@@ -3,28 +3,28 @@
 @tailwind utilities;
 
 .bg-color {
-  background-color: var(--bg-color);
+  background: var(--bg-color);
 }
 .hover-bg {
-  background-color: var(--hover-bg);
+  background: var(--hover-bg);
 }
 .active-bg {
-  background-color: var(--active-bg);
+  background: var(--active-bg);
 }
 .selected-bg {
-  background-color: var(--selected-bg);
+  background: var(--selected-bg);
 }
 .focus-bg {
-  background-color: var(--focus-bg);
+  background: var(--focus-bg);
 }
 .dynamic-button {
-  background-color: var(--bg-color);
+  background: var(--bg-color);
 }
 .dynamic-button:hover {
-  background-color: var(--hover-bg);
+  background: var(--hover-bg);
 }
 .dynamic-button:active {
-  background-color: var(--active-bg);
+  background: var(--active-bg);
 }
 .dynamic-button:focus {
   outline: none;
@@ -32,14 +32,14 @@
   box-shadow: 0 0 0 2px var(--focus-ring-color);
 }
 .input-text {
-    background-color: var(--bg-color);
+    background: var(--bg-color);
 }
 .input-text:focus {
     outline: none;
     box-shadow: 0 0 0 2px var(--focus-ring-color);
 }
 .input-text:active {
-    background-color: var(--active-bg);
+    background: var(--active-bg);
 }
 .input-text::selection {
     background-color: var(--selection-bg);

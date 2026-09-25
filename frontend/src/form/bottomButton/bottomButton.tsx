@@ -45,7 +45,7 @@ export const BottomButton = ({
         const plus100Color = mapStateBgColor(design?.stateBgColor?.plus100);
         const plus200Color = mapStateBgColor(design?.stateBgColor?.plus200);
         const plus300Color = mapStateBgColor(design?.stateBgColor?.plus300);
-        const plus400Color = mapStateBgColor(design?.stateBgColor?.plus400);
+        const focusRingColor = mapStateBgColor(design?.stateBgColor?.focusRingColor);
         return (
         <button
             key={idx}
@@ -69,7 +69,7 @@ export const BottomButton = ({
                 '--bg-color': `${plus100Color}`,
                 '--hover-bg': `${plus200Color}`,
                 '--active-bg': `${plus300Color}`,
-                '--focus-ring-color' : `${plus400Color}`,
+                '--focus-ring-color' : `${focusRingColor}`,
             } as React.CSSProperties}
         >
             {isAltPressed && firstChar ? (

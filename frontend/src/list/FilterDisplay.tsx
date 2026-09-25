@@ -37,7 +37,6 @@ export const FilterDisplay = ({
     const plus100Color = mapStateBgColor(design?.stateBgColor?.plus100);
     const plus200Color = mapStateBgColor(design?.stateBgColor?.plus200);
     const plus300Color = mapStateBgColor(design?.stateBgColor?.plus300);
-    const plus400Color = mapStateBgColor(design?.stateBgColor?.plus400);
     const bodyRenderedObjList = renderForFilterText(
         filterItemOpjs,
         headerFontColor,
@@ -63,7 +62,7 @@ export const FilterDisplay = ({
                         style={{
                             padding: `${borderValue}px`,
                             margin: `calc(${borderValue}px / 2)`,
-                            backgroundColor: isSelected ? plus100Color : 'transparent',
+                            background: isSelected ? plus100Color : 'transparent',
                         } as React.CSSProperties}
                             // bg-gray-100
                             // text-teal-600

@@ -28,9 +28,10 @@ export const FileSelectField = ({
 }: FileSelectFieldProps) => {
   const plus50Color = mapStateBgColor(design?.stateBgColor?.minus100);
   const plus100Color = mapStateBgColor(design?.stateBgColor?.plus100);
+  const selectionColor = mapStateBgColor(design?.stateBgColor?.selectionColor);
   const plus200Color = mapStateBgColor(design?.stateBgColor?.plus200);
   const plus300Color = mapStateBgColor(design?.stateBgColor?.plus300);
-  const plus400Color = mapStateBgColor(design?.stateBgColor?.plus400);
+  const focusRingColor = mapStateBgColor(design?.stateBgColor?.focusRingColor);
   return (
     <div className="flex flex-col" style={{ paddingBottom: `${borderValue}px` }}>
       <div className="flex items-center space-x-2">
@@ -56,9 +57,9 @@ export const FileSelectField = ({
             input-text"
           style={{ 
             padding: `${borderValue}px` ,
-            '--selection-bg': `${plus100Color}`,
+            '--selection-bg': `${selectionColor}`,
             '--active-bg': `${plus200Color}`,
-            '--focus-ring-color' : `${plus400Color}`,
+            '--focus-ring-color' : `${focusRingColor}`,
           } as React.CSSProperties}
         />
         <button
@@ -86,7 +87,7 @@ export const FileSelectField = ({
             '--bg-color': `${plus100Color}`,
             '--hover-bg': `${plus200Color}`,
             '--active-bg': `${plus300Color}`,
-            '--focus-ring-color' : `${plus400Color}`,
+            '--focus-ring-color' : `${focusRingColor}`,
            } as React.CSSProperties}
         >
           file...

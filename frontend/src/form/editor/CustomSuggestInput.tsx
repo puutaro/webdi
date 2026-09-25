@@ -139,9 +139,10 @@ export const CustomSuggestInput = ({
     }, [selectedSugIndex]);
 
     const plus100Color = mapStateBgColor(design?.stateBgColor?.plus100);
+    const selectionColor = mapStateBgColor(design?.stateBgColor?.selectionColor);
     const plus200Color = mapStateBgColor(design?.stateBgColor?.plus200);
     const plus300Color = mapStateBgColor(design?.stateBgColor?.plus300);
-    const plus400Color = mapStateBgColor(design?.stateBgColor?.plus400);
+    const focusRingColor = mapStateBgColor(design?.stateBgColor?.focusRingColor);
     const pocketBackground = design?.pocketBackground ?? ""
     return (
         <div ref={containerRef} className="relative w-full">
@@ -160,9 +161,9 @@ export const CustomSuggestInput = ({
                 style={{
                     padding: `${borderValue}px`,
                     fontSize: `${fontSize}px`,
-                    '--selection-bg': `${plus100Color}`,
+                    '--selection-bg': `${selectionColor}`,
                     '--active-bg': `${plus200Color}`,
-                    '--focus-ring-color' : `${plus400Color}`,
+                    '--focus-ring-color' : `${focusRingColor}`,
                 } as React.CSSProperties}
                 value={displayText}
                 onFocus={(e) => {

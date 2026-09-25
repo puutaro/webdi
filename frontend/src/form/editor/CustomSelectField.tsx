@@ -127,7 +127,7 @@ export const CustomSelectField = ({
     const plus100Color = mapStateBgColor(design?.stateBgColor?.plus100);
     const plus200Color = mapStateBgColor(design?.stateBgColor?.plus200);
     const plus300Color = mapStateBgColor(design?.stateBgColor?.plus300);
-    const plus400Color = mapStateBgColor(design?.stateBgColor?.plus400);
+    const focusRingColor = mapStateBgColor(design?.stateBgColor?.focusRingColor);
     const pocketBackground = design?.pocketBackground ?? ""
     return (
         <div ref={containerRef} className="relative w-full">
@@ -151,7 +151,7 @@ export const CustomSelectField = ({
                     '--bg-color': `${minus100Color}`,
                     '--hover-bg': `${plus100Color}`,
                     '--active-bg': `${plus200Color}`,
-                    '--focus-ring-color' : `${plus400Color}`,
+                    '--focus-ring-color' : `${focusRingColor}`,
                 } as React.CSSProperties}
             >
                 <span>{currentValue}</span>

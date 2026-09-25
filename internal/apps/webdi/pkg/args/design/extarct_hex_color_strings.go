@@ -2,6 +2,14 @@ package design
 
 import "strconv"
 
+func extractFirstHexColor(s string, defoColor string) string {
+	hexColorList := extractHexColors(s)
+	if len(hexColorList) > 0 {
+		return hexColorList[0]
+	}
+	return defoColor
+}
+
 func extractHexColors(s string) []string {
 	var results []string
 	n := len(s)
@@ -13,8 +21,7 @@ func extractHexColors(s string) []string {
 			length := 0
 			for j := i + 1; j < n; j++ {
 				c := s[j]
-				isHex := (c >= '0' && c <= '9') || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F')
-				if !isHex {
+				if !isHex(c) {
 					break
 				}
 				length++

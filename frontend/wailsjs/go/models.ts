@@ -1,14 +1,16 @@
 export namespace design {
 	
-	export class StateBgColor {
+	export class StateDesign {
 	    minus100: string;
 	    plus100: string;
 	    plus200: string;
 	    plus300: string;
 	    plus400: string;
+	    selectionColor: string;
+	    focusRingColor: string;
 	
 	    static createFrom(source: any = {}) {
-	        return new StateBgColor(source);
+	        return new StateDesign(source);
 	    }
 	
 	    constructor(source: any = {}) {
@@ -18,6 +20,8 @@ export namespace design {
 	        this.plus200 = source["plus200"];
 	        this.plus300 = source["plus300"];
 	        this.plus400 = source["plus400"];
+	        this.selectionColor = source["selectionColor"];
+	        this.focusRingColor = source["focusRingColor"];
 	    }
 	}
 	export class DesignConfig {
@@ -28,7 +32,7 @@ export namespace design {
 	    fontStrokeWidth: number;
 	    fontStrokeColor: string;
 	    headerFontColor: string;
-	    stateBgColor: StateBgColor;
+	    stateBgColor: StateDesign;
 	    background: string;
 	    pocketBackground: string;
 	
@@ -45,7 +49,7 @@ export namespace design {
 	        this.fontStrokeWidth = source["fontStrokeWidth"];
 	        this.fontStrokeColor = source["fontStrokeColor"];
 	        this.headerFontColor = source["headerFontColor"];
-	        this.stateBgColor = this.convertValues(source["stateBgColor"], StateBgColor);
+	        this.stateBgColor = this.convertValues(source["stateBgColor"], StateDesign);
 	        this.background = source["background"];
 	        this.pocketBackground = source["pocketBackground"];
 	    }

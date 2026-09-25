@@ -189,10 +189,10 @@ export const FormComponent = ({
     const titlePadding = (design?.borders ?? 0 * 110) / 100;
     const labelFontSize = (fontSize * 3) / 4;
     const borderValue = design?.borders ?? 10;
-    const plus100Color = mapStateBgColor(design?.stateBgColor?.plus100);
+    const selectionColor = mapStateBgColor(design?.stateBgColor?.selectionColor);
     const plus200Color = mapStateBgColor(design?.stateBgColor?.plus200);
     const plus300Color = mapStateBgColor(design?.stateBgColor?.plus300);
-    const plus400Color = mapStateBgColor(design?.stateBgColor?.plus400);
+    const focusRingColor = mapStateBgColor(design?.stateBgColor?.focusRingColor);
 
     return (
         <div
@@ -271,9 +271,9 @@ export const FormComponent = ({
                                                 "
                                             style={{ 
                                                 padding: `${borderValue}px`,
-                                                '--selection-bg': `${plus100Color}`,
+                                                '--selection-bg': `${selectionColor}`,
                                                 '--active-bg': `${plus200Color}`,
-                                                '--focus-ring-color' : `${plus400Color}`,
+                                                '--focus-ring-color' : `${focusRingColor}`,
 
                                             } as React.CSSProperties}
                                         />
