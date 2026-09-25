@@ -38,6 +38,29 @@ function App() {
         );
 
     }
+    const [isResizing, setIsResizing] = useState(false);
+
+    // ウィンドウのリサイズを検知して「リサイズ中」を判定する
+    useEffect(() => {
+        let timer: number;
+        const handleResize = () => {
+            setIsResizing(true);
+            
+            // 前のタイマーをクリア
+            clearTimeout(timer);
+            
+            // リサイズが止まってから一定時間（例: 150ms）経ったら「リサイズ終了」とする
+            timer = setTimeout(() => {
+                setIsResizing(false);
+            }, 300);
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+            clearTimeout(timer);
+        };
+    }, []);
     useEffect(() => {
         // Go側から "json-data-loaded" イベントが飛んできたら実行される
         const unsubscribe = EventsOn("req", (data: network.GuiRequestForWebview) => {
@@ -134,6 +157,7 @@ function App() {
     let fontStrokeWidth = 0.15;
     let fontStrokeColor = "#ffffff";
     let background = "#ffffff"
+    let resizeBackground = "#ffffff"
     let desgin = null
     switch (true) {
     case (viewType === VIEW_MODES.FORM && formConfig != null):
@@ -150,6 +174,7 @@ function App() {
     fontStrokeWidth = desgin?.fontStrokeWidth ?? fontStrokeWidth;
     fontStrokeColor = desgin?.fontStrokeColor ?? fontStrokeColor;
     background = desgin?.background ?? "";
+    resizeBackground = desgin?.resizeBg ?? "";
     const fontSizePx = `${fontSizeInt}px`;
     if (viewType === VIEW_MODES.LOADING) {
         return <div className="p-8 text-center">Loading...</div>;
@@ -159,23 +184,22 @@ function App() {
 
         <div
             className={`
-                flex flex-col h-screen overflow-hidden 
+                relative
+                flex flex-col h-screen overflow-hidden
                 antialiased 
                 shadow-2xl 
                 border border-gray-200 rounded-lg
+                transition-opacity duration-200 ease-out
+                animate-fade-in
                 `}
             style={{ 
                 fontFamily: fontFamily,
                 fontSize: fontSizePx,
                 color: fontColorClass,
-                // color: "#1b4d3e",
-                // color: "#333333",
                 WebkitTextStroke: `${fontStrokeWidth}em ${fontStrokeColor}`,
                 paintOrder: "stroke fill",
-                background: `${background}`,
-                // WebkitTextStroke: "0.01px #ff4500",
-                // textShadow: "2px 2px 10px #5560fc, -2px -2px 10px #5560fc, 0 0 20px #5560fc",
-                // textShadow: "0 0 10px #5560fc, 0 0 20px #5560fc",
+                background:  background,
+                zIndex: -2,
             }}
         >
             {/* 1. 最上部にカスタムヘッダーを配置（ウィンドウドラッグ用） */}
@@ -183,17 +207,30 @@ function App() {
                 windowIcon={iconAndTitle.windowIcon}
                 title={iconAndTitle.title}
             />
-
-            {/* 2. 残りのコンテンツエリア */}
             <div
-                className="flex-1 h-0 overflow-hidden flex flex-col"
+                className="flex-1 h-0 overflow-hidden flex flex-col relative"
                 style={{ 
                     padding: `${borderValue}px` ,
                     marginLeft: `calc(${borderValue}px)` ,
                     marginRight: `calc(${borderValue}px)` ,
                 }}
             >
-                <div className="h-full w-full overflow-hidden flex flex-col">
+            {Array.from({ length: 3 }).map((_, index) => (
+                <div 
+                    key={index}
+                    className="
+                        absolute 
+                        inset-0 pointer-events-none 
+                    "
+                    style={{
+                        background: resizeBackground,
+                        opacity: isResizing ? 1 : 0, 
+                        zIndex: -1,
+                        transition: isResizing ? "opacity 0ms" : "opacity 300ms ease-out",
+                    }}
+                />
+            ))}
+            <div className="h-full w-full overflow-hidden flex flex-col">
                     {viewType === VIEW_MODES.FORM && (
                         <FormComponent
                             formConfig={formConfig}

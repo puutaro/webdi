@@ -34,6 +34,7 @@ export namespace design {
 	    headerFontColor: string;
 	    stateBgColor: StateDesign;
 	    background: string;
+	    resizeBg: string;
 	    pocketBackground: string;
 	
 	    static createFrom(source: any = {}) {
@@ -51,6 +52,7 @@ export namespace design {
 	        this.headerFontColor = source["headerFontColor"];
 	        this.stateBgColor = this.convertValues(source["stateBgColor"], StateDesign);
 	        this.background = source["background"];
+	        this.resizeBg = source["resizeBg"];
 	        this.pocketBackground = source["pocketBackground"];
 	    }
 	

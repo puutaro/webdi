@@ -85,6 +85,7 @@ func (cmd *ListCmd) GetListConfig() ListConfigResponse {
 				designArg.ReverseStageBg,
 			),
 			Background:       designArg.Background.Concat(),
+			ResizeBackground: designArg.Background.RemoveURLBackground("#ffffff"),
 			PocketBackground: designArg.Background.PocketColor(),
 		},
 		Reloads:     reloads,

@@ -33,6 +33,10 @@ func startsGui(appConfig *args.AppConfig) error {
 	r, g, b, _ := getWallRgb(*appConfig)
 	image.ApplyMacAppIcon(app.WindowIconBytes)
 	// Create application with options
+	// os.Setenv(
+	// 	"WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS",
+	// 	"--disable-background-timer-throttling --disable-renderer-backgrounding",
+	// )
 	err := wails.Run(&options.App{
 		Title: windowConfig.Title,
 		Windows: &windows.Options{

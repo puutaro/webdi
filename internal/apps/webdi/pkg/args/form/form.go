@@ -104,6 +104,7 @@ func (cmd *FormCmd) GetFormConfig() FormConfigResponse {
 				designArg.ReverseStageBg,
 			),
 			Background:       designArg.Background.Concat(),
+			ResizeBackground: designArg.Background.RemoveURLBackground("#ffffff"),
 			PocketBackground: designArg.Background.PocketColor(),
 		},
 		ItemSeparator: cmd.ItemSeparator,

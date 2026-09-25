@@ -41,6 +41,7 @@ type DesignConfig struct {
 	HeaderFontColor  string      `json:"headerFontColor"`
 	StateBg          StateDesign `json:"stateBgColor"`
 	Background       string      `json:"background"`
+	ResizeBackground string      `json:"resizeBg"`
 	PocketBackground string      `json:"pocketBackground"`
 }
 
