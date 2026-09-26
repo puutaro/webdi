@@ -204,7 +204,6 @@ function App() {
                 '--shadow-color': `${fontStrokeColor}`,
                 paintOrder: "stroke fill",
                 background:  background,
-                zIndex: -2,
             } as React.CSSProperties }
         >
             {/* 1. 最上部にカスタムヘッダーを配置（ウィンドウドラッグ用） */}
