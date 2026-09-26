@@ -29,14 +29,14 @@
 .dynamic-button:focus {
   outline: none;
   /* Tailwindの ring-2 と同じ太さ（2px）のリングをCSSの box-shadow で表現 */
-    box-shadow: 3px 3px 0px 3px var(--focus-ring-color);
+    box-shadow: 3px 3px 0px 5px var(--focus-ring-color);
 }
 .input-text {
     background: var(--bg-color);
 }
 .input-text:focus {
     outline: none;
-    box-shadow: 3px 3px 0px 3px var(--focus-ring-color);
+    box-shadow: 3px 3px 0px 5px var(--focus-ring-color);
 }
 .input-text:active {
     background: var(--active-bg);
