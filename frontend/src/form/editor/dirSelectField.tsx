@@ -33,6 +33,8 @@ export const DirSelectField = ({
   const plus200Color = mapStateBgColor(design?.stateBgColor?.plus200);
   const plus300Color = mapStateBgColor(design?.stateBgColor?.plus300);
   const focusRingColor = mapStateBgColor(design?.stateBgColor?.focusRingColor);
+  const shadowSize = (design?.fontStrokeWidth ?? 0.1) * 0.3
+  const fontStrokeColor = design?.fontStrokeColor ?? "#ffffff";
   return (
     <div className="flex flex-col" style={{ paddingBottom: `${borderValue}px` }}>
       <div className="flex items-center space-x-2">
@@ -56,7 +58,8 @@ export const DirSelectField = ({
               inputEscGuard(e)
           }}
           className="
-            border rounded flex-1
+            custom-rect-border
+            flex-1
             input-text
             "
           style={{ 
@@ -64,6 +67,8 @@ export const DirSelectField = ({
             '--selection-bg': `${selectionColor}`,
             '--active-bg': `${plus200Color}`,
             '--focus-ring-color' : `${focusRingColor}`,
+            '--shadow-size': `${shadowSize}em`,
+            '--shadow-color': `${fontStrokeColor}`,
           } as React.CSSProperties}
         />
         <button

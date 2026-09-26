@@ -29,14 +29,14 @@
 .dynamic-button:focus {
   outline: none;
   /* Tailwindの ring-2 と同じ太さ（2px）のリングをCSSの box-shadow で表現 */
-  box-shadow: 0 0 0 2px var(--focus-ring-color);
+    box-shadow: 3px 3px 0px 3px var(--focus-ring-color);
 }
 .input-text {
     background: var(--bg-color);
 }
 .input-text:focus {
     outline: none;
-    box-shadow: 0 0 0 2px var(--focus-ring-color);
+    box-shadow: 3px 3px 0px 3px var(--focus-ring-color);
 }
 .input-text:active {
     background: var(--active-bg);
@@ -55,4 +55,14 @@
 
 .animate-fade-in {
   animation: fadeIn 0.5s ease-out forwards;
+}
+
+.custom-rect-border {
+  border-right-width: 1px;
+  border-bottom-width: 1px;
+  border-style: solid;
+  /* borderの色は必要に応じて調整してください（例: Tailwindのborder-gray-200相当の色など） */
+  border-color: #e5e7eb; 
+  border-radius: 0.25rem; /* rounded に相当 */
+  box-shadow: var(--shadow-size, 0.1em) var(--shadow-size, 0.1em) 0 0 var(--shadow-color, white);
 }

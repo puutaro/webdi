@@ -173,6 +173,7 @@ function App() {
     fontFamily = desgin?.fontFamily ?? fontFamily;
     fontStrokeWidth = desgin?.fontStrokeWidth ?? fontStrokeWidth;
     fontStrokeColor = desgin?.fontStrokeColor ?? fontStrokeColor;
+    const shadowSize = (desgin?.fontStrokeWidth ?? 0.1) * 0.6
     background = desgin?.background ?? "";
     resizeBackground = desgin?.resizeBg ?? "";
     const fontSizePx = `${fontSizeInt}px`;
@@ -188,7 +189,9 @@ function App() {
                 flex flex-col h-screen overflow-hidden
                 antialiased 
                 shadow-2xl 
-                border border-gray-200 rounded-lg
+                border border-gray-200 
+                shadow-[0_var(--shadow-size,0.1em)_0_0_var(--shadow-color,white)]
+                rounded-lg
                 transition-opacity duration-200 ease-out
                 animate-fade-in
                 `}
@@ -197,10 +200,12 @@ function App() {
                 fontSize: fontSizePx,
                 color: fontColorClass,
                 WebkitTextStroke: `${fontStrokeWidth}em ${fontStrokeColor}`,
+                '--shadow-size': `${shadowSize}em`,
+                '--shadow-color': `${fontStrokeColor}`,
                 paintOrder: "stroke fill",
                 background:  background,
                 zIndex: -2,
-            }}
+            } as React.CSSProperties }
         >
             {/* 1. 最上部にカスタムヘッダーを配置（ウィンドウドラッグ用） */}
             <CustomHeader

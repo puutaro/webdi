@@ -34,8 +34,24 @@ export const BottomButton = ({
   handleButtonClick,
   keepConfigRef,
 }: BottomButtonProps) => {
+
+  const desgin = formConfig?.design
+  const shadowSize = (desgin?.fontStrokeWidth ?? 0.1) * 0.2
+  const fontStrokeColor = desgin?.fontStrokeColor ?? "#ffffff";
   return (
-    <div className="flex justify-end space-x-2 pt-4 border-t mt-2 flex-shrink-0">
+    <div 
+      className="
+      flex 
+      justify-end space-x-2 
+      pt-4 border-t 
+      shadow-[0_calc(-1*var(--shadow-size,0.1em))_0_0_var(--shadow-color,white)]
+      mt-2 flex-shrink-0
+      "
+      style={{
+        '--shadow-size': `${shadowSize}em`,
+        '--shadow-color': `${fontStrokeColor}`,
+      } as React.CSSProperties}
+    >
     {formConfig.buttons?.map((btn, idx) => {
         const label = btn.label || "";
         const firstChar = label.charAt(0);
@@ -59,8 +75,7 @@ export const BottomButton = ({
                 keepConfigRef.current,
             )}
             className="
-              border rounded 
-              shadow-sm
+              custom-rect-border
               dynamic-button
               "
             style={{ 
@@ -70,6 +85,8 @@ export const BottomButton = ({
                 '--hover-bg': `${plus200Color}`,
                 '--active-bg': `${plus300Color}`,
                 '--focus-ring-color' : `${focusRingColor}`,
+                '--shadow-size': `${shadowSize}em`,
+                '--shadow-color': `${fontStrokeColor}`,
             } as React.CSSProperties}
         >
             {isAltPressed && firstChar ? (

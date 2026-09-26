@@ -94,7 +94,7 @@ export const  ListComponent =
         const justEndedComposingRef = useRef(false);
         const design = listConfig?.design;
         const borderValue = design?.borders ?? 10;
-        const shadowSize = (design?.fontStrokeWidth ?? 0.1) * 0.6
+        const shadowSize = (design?.fontStrokeWidth ?? 0.1) * 0.55
         const fontStrokeColor = design?.fontStrokeColor ?? "#ffffff"
         const pocketBackgound = design?.pocketBackground ?? ""
         return (

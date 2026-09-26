@@ -22,6 +22,9 @@ export const BtnField = ({
   firstFocusRef,
   design,
 }: BtnFieldProps) => {
+
+  const shadowSize = (design?.fontStrokeWidth ?? 0.1) * 0.3
+  const fontStrokeColor = design?.fontStrokeColor ?? "#ffffff";
   const plus100Color = mapStateBgColor(design?.stateBgColor?.plus100);
   const plus200Color = mapStateBgColor(design?.stateBgColor?.plus200);
   const plus300Color = mapStateBgColor(design?.stateBgColor?.plus300);
@@ -40,7 +43,7 @@ export const BtnField = ({
         }
       }}
       className="
-        border rounded 
+        custom-rect-border
         dynamic-button
       "
       style={{ 
@@ -50,6 +53,8 @@ export const BtnField = ({
         '--hover-bg': `${plus200Color}`,
         '--active-bg': `${plus300Color}`,
         '--focus-ring-color' : `${focusRingColor}`,
+        '--shadow-size': `${shadowSize}em`,
+        '--shadow-color': `${fontStrokeColor}`,
       } as React.CSSProperties}
     >
     {field.label}

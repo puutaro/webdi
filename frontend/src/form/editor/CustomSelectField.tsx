@@ -129,6 +129,8 @@ export const CustomSelectField = ({
     const plus300Color = mapStateBgColor(design?.stateBgColor?.plus300);
     const focusRingColor = mapStateBgColor(design?.stateBgColor?.focusRingColor);
     const pocketBackground = design?.pocketBackground ?? ""
+    const shadowSize = (design?.fontStrokeWidth ?? 0.1) * 0.3
+    const fontStrokeColor = design?.fontStrokeColor ?? "#ffffff";
     return (
         <div ref={containerRef} className="relative w-full">
             <button
@@ -141,7 +143,9 @@ export const CustomSelectField = ({
                 onKeyDown={handleKeyDown}
                 onBlur={handleBlur}
                 className="
-                    w-full border rounded text-left 
+                    w-full 
+                    custom-rect-border
+                    text-left 
                     flex justify-between items-center 
                     transition-colors 
                     dynamic-button
@@ -152,6 +156,8 @@ export const CustomSelectField = ({
                     '--hover-bg': `${plus100Color}`,
                     '--active-bg': `${plus200Color}`,
                     '--focus-ring-color' : `${focusRingColor}`,
+                    '--shadow-size': `${shadowSize}em`,
+                    '--shadow-color': `${fontStrokeColor}`,
                 } as React.CSSProperties}
             >
                 <span>{currentValue}</span>

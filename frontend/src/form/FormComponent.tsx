@@ -191,6 +191,8 @@ export const FormComponent = ({
     const plus200Color = mapStateBgColor(design?.stateBgColor?.plus200);
     const plus300Color = mapStateBgColor(design?.stateBgColor?.plus300);
     const focusRingColor = mapStateBgColor(design?.stateBgColor?.focusRingColor);
+    const shadowSize = (design?.fontStrokeWidth ?? 0.1) * 0.3
+    const fontStrokeColor = design?.fontStrokeColor ?? "#ffffff"
 
     return (
         <div
@@ -264,7 +266,7 @@ export const FormComponent = ({
                                                 inputEscGuard(e);
                                             }}
                                             className="
-                                                border rounded
+                                                custom-rect-border
                                                 transition-colors 
                                                 input-text
                                                 "
@@ -273,6 +275,8 @@ export const FormComponent = ({
                                                 '--selection-bg': `${selectionColor}`,
                                                 '--active-bg': `${plus200Color}`,
                                                 '--focus-ring-color' : `${focusRingColor}`,
+                                                '--shadow-size': `${shadowSize}em`,
+                                                '--shadow-color': `${fontStrokeColor}`,
 
                                             } as React.CSSProperties}
                                         />

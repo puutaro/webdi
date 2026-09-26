@@ -32,6 +32,8 @@ export const NumEditField = ({
   const plus200Color = mapStateBgColor(design?.stateBgColor?.plus200);
   const plus300Color = mapStateBgColor(design?.stateBgColor?.plus300);
   const focusRingColor = mapStateBgColor(design?.stateBgColor?.focusRingColor);
+  const shadowSize = (design?.fontStrokeWidth ?? 0.1) * 0.3
+  const fontStrokeColor = design?.fontStrokeColor ?? "#ffffff";
   const numSeparator = '!';
   const parts = (field.srcValue || "").split(numSeparator);
   const rangePart = parts[1] || "";
@@ -125,7 +127,7 @@ export const NumEditField = ({
           inputEscGuard(e);
         }}
         className="
-          border rounded-l rounded-r-none 
+          custom-rect-border
           flex-1 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none 
           text-right
           input-text"
@@ -134,6 +136,8 @@ export const NumEditField = ({
           '--selection-bg': `${selectionColor}`,
           '--active-bg': `${plus200Color}`,
           '--focus-ring-color' : `${focusRingColor}`,
+          '--shadow-size': `${shadowSize}em`,
+          '--shadow-color': `${fontStrokeColor}`,
         } as React.CSSProperties}
       />
       <button
@@ -145,7 +149,7 @@ export const NumEditField = ({
         onMouseUp={stopHold}
         onMouseLeave={stopHold}
         className="
-          border-t border-b border-r 
+          custom-rect-border
           select-none
           dynamic-button
           "
@@ -155,6 +159,8 @@ export const NumEditField = ({
           '--hover-bg': `${plus100Color}`,
           '--active-bg': `${plus200Color}`,
           '--focus-ring-color' : `${focusRingColor}`,
+          '--shadow-size': `${shadowSize}em`,
+          '--shadow-color': `${fontStrokeColor}`,
        } as React.CSSProperties}
       >
         -
@@ -168,7 +174,7 @@ export const NumEditField = ({
         onMouseUp={stopHold}
         onMouseLeave={stopHold}
         className="
-          border-t border-b border-r rounded-r 
+          custom-rect-border
           select-none
           dynamic-button
           "
@@ -178,6 +184,8 @@ export const NumEditField = ({
           '--hover-bg': `${plus100Color}`,
           '--active-bg': `${plus200Color}`,
           '--focus-ring-color' : `${focusRingColor}`,
+          '--shadow-size': `${shadowSize}em`,
+          '--shadow-color': `${fontStrokeColor}`,
        } as React.CSSProperties}
       >
         +
