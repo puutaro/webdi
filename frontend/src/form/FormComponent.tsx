@@ -185,8 +185,6 @@ export const FormComponent = ({
 
     const design = formConfig?.design;
     const fontSize = design?.fontSize ?? 10;
-    const titleFontSize = (fontSize * 110) / 100;
-    const titlePadding = (design?.borders ?? 0 * 110) / 100;
     const labelFontSize = (fontSize * 3) / 4;
     const borderValue = design?.borders ?? 10;
     const selectionColor = mapStateBgColor(design?.stateBgColor?.selectionColor);
@@ -203,8 +201,9 @@ export const FormComponent = ({
                 <h1
                     className="font-bold flex-shrink-0"
                     style={{
-                        fontSize: `${titleFontSize}px`,
-                        padding: `${titlePadding}px`,
+                        fontSize: "calc(1em * 110 / 100)",
+                        padding: "calc(1em * 110 / 100)",
+                        paddingLeft: "calc(1em * 50 / 100)",
                     }}
                 >
                     {formConfig.text}

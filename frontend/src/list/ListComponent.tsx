@@ -118,6 +118,7 @@ export const  ListComponent =
                         style={{
                             fontSize: "calc(1em * 110 / 100)",
                             padding: "calc(1em * 110 / 100)",
+                            paddingLeft: "calc(1em * 50 / 100)",
                         }}
                     >
                         {listConfig.text}
