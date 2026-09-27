@@ -1,92 +1,92 @@
 package colortool
 
 import (
-	"bytes"
 	"fmt"
-	"strings"
 )
 
-var colorMap = map[string]string{
-	"lgreen": "#43fa46",
-	"green":  "#11b812",
-	"dgreen": "#014702",
-	"lred":   "#fa4d4d",
-	"red":    "#ff0000",
-	"dred":   "#850101",
-	"lblue":  "#26c0fc",
-	"blue":   "#0026ff",
-	"dblue":  "#001d9e",
-	"lazure": "#67e8eb",
-	"azure":  "#21ebc6",
-	"dazure": "#1c4d44",
-	"yellow": "#fff200",
-	"lbrown": "#f26e27",
-	"brown":  "#b35c15",
-	"dbrown": "#572b07",
-	"black":  "#000000",
-	"white":  "#ffffff",
-	"trans":  "#00000000",
-}
+// var colorMap = map[string]string{
+// 	"lgreen": "#43fa46",
+// 	"green":  "#11b812",
+// 	"dgreen": "#014702",
+// 	"lred":   "#fa4d4d",
+// 	"red":    "#ff0000",
+// 	"dred":   "#850101",
+// 	"lblue":  "#26c0fc",
+// 	"blue":   "#0026ff",
+// 	"dblue":  "#001d9e",
+// 	"lazure": "#67e8eb",
+// 	"azure":  "#21ebc6",
+// 	"dazure": "#1c4d44",
+// 	"yellow": "#fff200",
+// 	"lbrown": "#f26e27",
+// 	"brown":  "#b35c15",
+// 	"dbrown": "#572b07",
+// 	"black":  "#000000",
+// 	"white":  "#ffffff",
+// 	"trans":  "#00000000",
+// }
 
-func GetHexColor(colorCode string) (string, error) {
-	hex := colorMap[colorCode]
-	if hex == "" {
-		return ValidateHexColor(colorCode)
-	}
-	return hex, nil
-}
-func ReplaceColorNameFromByte(srcLine []byte) string {
-	if len(srcLine) == 0 {
-		return ""
-	}
+// func GetHexColor(colorCode string) (string, error) {
+// 	hex := colorMap[colorCode]
+// 	if hex == "" {
+// 		return ValidateHexColor(colorCode)
+// 	}
+// 	return hex, nil
+// }
 
-	// 完全一致のチェック（[]byte を string に変換して map を引く）
-	// ※変換コストを抑えたい場合は colorMap のキー側を string にしておきここで string(srcLine) を使えばOKです
-	if hexStr, ok := colorMap[string(srcLine)]; ok {
-		return hexStr
-	}
+// func ReplaceColorNameFromByte(srcLine []byte) string {
+// 	if len(srcLine) == 0 {
+// 		return ""
+// 	}
 
-	// 効率的な処理のため、最初は []byte のままコピーを保持
-	line := make([]byte, len(srcLine))
-	copy(line, srcLine)
+// 	// 完全一致のチェック（[]byte を string に変換して map を引く）
+// 	// ※変換コストを抑えたい場合は colorMap のキー側を string にしておきここで string(srcLine) を使えばOKです
+// 	if hexStr, ok := colorMap[string(srcLine)]; ok {
+// 		return hexStr
+// 	}
 
-	for name, hex := range colorMap {
-		nameInSpace := fmt.Appendf(nil, " %s ", name)
-		replaceInSpace := fmt.Appendf(nil, " %s ", hex)
-		line = bytes.ReplaceAll(line, nameInSpace, replaceInSpace)
+// 	// 効率的な処理のため、最初は []byte のままコピーを保持
+// 	line := make([]byte, len(srcLine))
+// 	copy(line, srcLine)
 
-		nameSuffixSpace := fmt.Appendf(nil, "%s ", name)
-		replaceSuffixSpace := fmt.Appendf(nil, "%s ", hex)
-		if bytes.HasPrefix(line, nameSuffixSpace) {
-			line = bytes.ReplaceAll(line, nameSuffixSpace, replaceSuffixSpace)
-		}
+// 	for name, hex := range colorMap {
+// 		nameInSpace := fmt.Appendf(nil, " %s ", name)
+// 		replaceInSpace := fmt.Appendf(nil, " %s ", hex)
+// 		line = bytes.ReplaceAll(line, nameInSpace, replaceInSpace)
 
-		namePrefixSpace := fmt.Appendf(nil, " %s", name)
-		replacePrefixSpace := fmt.Appendf(nil, " %s", hex)
-		if bytes.HasSuffix(line, nameSuffixSpace) {
-			line = bytes.ReplaceAll(line, namePrefixSpace, replacePrefixSpace)
-		}
-	}
-	return string(line)
-}
-func ReplaceColorName(srcLine string) string {
-	if srcLine == "" {
-		return ""
-	}
-	if hexStr, ok := colorMap[srcLine]; ok {
-		return hexStr
-	}
-	line := srcLine
-	for name, hex := range colorMap {
-		nameInSpace := fmt.Sprintf(" %s ", name)
-		line = strings.ReplaceAll(line, nameInSpace, hex)
-		nameSuffixSpace := fmt.Sprintf("%s ", name)
-		line = strings.ReplaceAll(line, nameSuffixSpace, hex)
-		namePrefixSpace := fmt.Sprintf(" %s", name)
-		line = strings.ReplaceAll(line, namePrefixSpace, hex)
-	}
-	return line
-}
+// 		nameSuffixSpace := fmt.Appendf(nil, "%s ", name)
+// 		replaceSuffixSpace := fmt.Appendf(nil, "%s ", hex)
+// 		if bytes.HasPrefix(line, nameSuffixSpace) {
+// 			line = bytes.ReplaceAll(line, nameSuffixSpace, replaceSuffixSpace)
+// 		}
+
+//			namePrefixSpace := fmt.Appendf(nil, " %s", name)
+//			replacePrefixSpace := fmt.Appendf(nil, " %s", hex)
+//			if bytes.HasSuffix(line, nameSuffixSpace) {
+//				line = bytes.ReplaceAll(line, namePrefixSpace, replacePrefixSpace)
+//			}
+//		}
+//		return string(line)
+//	}
+//
+//	func ReplaceColorName(srcLine string) string {
+//		if srcLine == "" {
+//			return ""
+//		}
+//		if hexStr, ok := colorMap[srcLine]; ok {
+//			return hexStr
+//		}
+//		line := srcLine
+//		for name, hex := range colorMap {
+//			nameInSpace := fmt.Sprintf(" %s ", name)
+//			line = strings.ReplaceAll(line, nameInSpace, hex)
+//			nameSuffixSpace := fmt.Sprintf("%s ", name)
+//			line = strings.ReplaceAll(line, nameSuffixSpace, hex)
+//			namePrefixSpace := fmt.Sprintf(" %s", name)
+//			line = strings.ReplaceAll(line, namePrefixSpace, hex)
+//		}
+//		return line
+//	}
 func ValidateHexColor(color string) (string, error) {
 	if len(color) == 0 {
 		return "", fmt.Errorf("empty color string")

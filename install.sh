@@ -109,7 +109,7 @@ case "$OS" in
         ensure_node
         ensure_wails
 
-        MAC_BUILD_DIR="$HOME/.webdi"
+        MAC_BUILD_DIR="$HOME/.webdi_build"
         
         if [ -d "$MAC_BUILD_DIR" ]; then
             echo "==> Updating repository in $MAC_BUILD_DIR..."
