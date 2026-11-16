@@ -11,6 +11,7 @@ import { useKeyboardShortcut } from './hooks/useFormKeyShortcut';
 import { useInitSuggest } from "./editor/useSuggest";
 import { makeKey } from "./editor/makeKey";
 import { CustomSuggestInput } from "./editor/CustomSuggestInput";
+import { MutiLineTextInput} from "./editor/MutiLineTextInput";
 import { CustomSelectField } from "./editor/CustomSelectField";
 import { is_special_str } from '../libs/is_specaial_str';
 import { KeepConfig } from '../type/keepInfo';
@@ -292,6 +293,18 @@ export const FormComponent = ({
                                             isFirstTarget={isFirstTarget}
                                             firstFocusRef={firstFocusRef}
                                             headerFontColor={mapHeaderColor(formConfig?.design?.headerFontColor)}
+                                            design={design}
+                                        />
+                                    )}
+                                    {field.type === 'MTXT' && (
+                                        <MutiLineTextInput
+                                            fieldKey={key}
+                                            setFieldValue={setFieldValue}
+                                            displayText={formValues[key] ?? field.defaultValue ?? ""}
+                                            fontSize={fontSize}
+                                            borderValue={borderValue}
+                                            isFirstTarget={isFirstTarget}
+                                            firstFocusRef={firstFocusRef}
                                             design={design}
                                         />
                                     )}

@@ -1,6 +1,7 @@
 package form
 
 import (
+	"encoding/base64"
 	"strconv"
 	"strings"
 	"unicode"
@@ -176,6 +177,13 @@ func parseFieldString(raw, fValue, itemSep string) FieldDef {
 	case fType == "NUM":
 		defaultValue, _, _ = strings.Cut(fValue, "!")
 		srcValue = fValue
+	case fType == "MTXT":
+		srcValue = fValue
+		defaultValue = fValue
+		decodedBytes, err := base64.StdEncoding.DecodeString(fValue)
+		if err == nil {
+			defaultValue = string(decodedBytes)
+		}
 	}
 	return FieldDef{
 		Label:        formLabel,

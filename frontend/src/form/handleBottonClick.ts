@@ -5,6 +5,8 @@ import {saveAllTxtHistory} from "./editor/suggest";
 import {makeKey} from "./editor/makeKey";
 import { KeepConfig } from '../type/keepInfo';
 import { WriteStderr } from '../../wailsjs/go/main/App';
+import {encodeBase64} from "../libs/encodeBase64";
+import { trimEmptyLines } from "../libs/trimEmptyLines";
 
 const sleep = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
 
@@ -52,7 +54,13 @@ export const handleButtonClick = async (
               index,
               label,
           );
-          return currentValues[key] ?? field.defaultValue ?? "";
+          const srcValueStr = currentValues[key] ?? field.defaultValue ?? "";
+          if (field.type === 'MTXT') {
+            return encodeBase64(
+              trimEmptyLines(srcValueStr)
+            );
+          }
+          return srcValueStr
         } catch (err: any) {
           // どこで、何というエラーで落ちたかを確実にファイルや標準出力に吐かせる
           console.log(`Excenption at index ${index}: ${err?.message || err}`);
@@ -67,4 +75,3 @@ export const handleButtonClick = async (
         keepConfig,
     );
   };
-
