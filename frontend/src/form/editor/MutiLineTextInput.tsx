@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { is_special_str } from "../../libs/is_specaial_str";
 import { design } from '../../../wailsjs/go/models';
 import { mapStateBgColor } from '../../libs/color_mapper';
+import { WriteStderr } from "../../../wailsjs/go/main/App";
 
 export type MutiLineTextInputProps = {
     fieldKey: string;
@@ -70,6 +71,7 @@ export const MutiLineTextInput = ({
         target.addEventListener("pointermove", onPointerMove);
         target.addEventListener("pointerup", onPointerUp);
     };
+    const bottomRadius = "800px";
 
     return (
         <div className="relative w-full" style={{ position: "relative", width: "100%" }}>
@@ -129,15 +131,26 @@ export const MutiLineTextInput = ({
                     touchAction: "none",
                 }}
             >
-                <div
+            <div
                     style={{
-                        width: "48px",
-                        height: "3px",
-                        borderRadius: "9999px",
-                        backgroundColor: isHovered ? "rgba(156, 163, 175, 0.8)" : "transparent",
-                        transition: "background-color 0.15s",
+                        width: bottomRadius,   // 丸の横幅（大きくすると平たい弧、小さくするとこんもりした山になる）
+                        height: "10px",   // ★ 底辺からひょっこり覗く高さ
+                        overflow: "hidden",
+                        position: "relative",
                     }}
-                />
+                >
+                    {/* 正円の上端 4px 分だけを枠内に見せる */}
+                    <div
+                        style={{
+                            width: bottomRadius,
+                            height: bottomRadius,
+                            borderRadius: "50%",
+                            backgroundColor: isHovered
+                                ? focusRingColor : "transparent",
+                            transition: "background-color 0.15s",
+                        }}
+                    />
+                </div>
             </div>
         </div>
     );
