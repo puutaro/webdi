@@ -41,7 +41,10 @@ export const onKeyDown = (params: OnKeyDownParams) => {
         keepConfig,
         justEndedComposingRef,
     } = params;
-
+    if (e.key === 'Tab') {
+            e.preventDefault();
+            return;
+    }
     const isImeInput = e.nativeEvent.isComposing || e.key === 'Process';
 
     // ★ 2. IME操作中の Escape
