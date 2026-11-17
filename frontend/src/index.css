@@ -38,9 +38,9 @@
     outline: none;
     box-shadow: 3px 3px 0px 5px var(--focus-ring-color);
 }
-.input-text:active {
+/* .input-text:active {
     background: var(--active-bg);
-}
+} */
 .input-text::selection {
     background-color: var(--selection-bg);
 }
