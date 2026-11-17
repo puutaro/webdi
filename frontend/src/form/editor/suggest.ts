@@ -3,6 +3,7 @@
 import {SuggestHistoryItem} from "../FormComponent";
 import {form} from "../../../wailsjs/go/models";
 import {makeKey} from "./makeKey";
+import {getLocalStorageKey} from "./getLocalStorageKey";
 
 export const saveAllTxtHistory = (
     currentConfig: form.FormConfigResponse | null,
@@ -60,13 +61,4 @@ export const saveAllTxtHistory = (
 
         return nextMap;
     });
-};
-
-// 内部キーから LocalStorage 用のキーを生成するヘルパー関数
-export const getLocalStorageKey = (
-    id: string | undefined,
-    subId: string | undefined,
-    label: string,
-) => {
-    return `${id ?? "id"}_${subId ?? "subId"}_${label}`;
 };

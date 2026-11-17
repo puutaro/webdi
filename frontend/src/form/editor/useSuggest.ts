@@ -1,6 +1,6 @@
 import {useEffect} from "react";
 import {SuggestHistoryItem} from "../FormComponent";
-import {getLocalStorageKey} from "./suggest";
+import {getLocalStorageKey} from "./getLocalStorageKey";
 import {form} from "../../../wailsjs/go/models";
 
 
