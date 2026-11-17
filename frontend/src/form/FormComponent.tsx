@@ -18,6 +18,7 @@ import { KeepConfig } from '../type/keepInfo';
 import { inputEscGuard } from '../libs/input_esc_gaurd';
 import { mapHeaderColor, mapStateBgColor } from '../libs/color_mapper';
 import { WriteStderr } from '../../wailsjs/go/main/App';
+import { useInitMtxtSuggest } from './editor/useInitMtxtSuggest';
 
 export type SuggestHistoryItem = {
     value: string;
@@ -36,6 +37,7 @@ export const FormComponent = ({
 
     const [isAltPressed, setIsAltPressed] = useState(false);
     const [historyMap, setHistoryMap] = useState<Record<string, SuggestHistoryItem[]>>({});
+    const [mtxtHistoryMap, setMtxtHistoryMap] = useState<Record<string, string[]>>({}); // ★ 追加
 
     const {
         state: formValues,
@@ -56,6 +58,7 @@ export const FormComponent = ({
     const isExecutingRef = useRef(false);
 
     useInitSuggest(formConfig, setHistoryMap);
+    useInitMtxtSuggest(formConfig, setMtxtHistoryMap);
 
     const formConfigRef = useRef(formConfig);
     const formValuesRef = useRef(formValues);
@@ -119,6 +122,7 @@ export const FormComponent = ({
                         formValuesRef,
                         isExecutingRef,
                         setHistoryMap,
+                        setMtxtHistoryMap,
                         keepConfigRef.current,
                     );
                     return;
@@ -142,6 +146,7 @@ export const FormComponent = ({
                         formValuesRef,
                         isExecutingRef,
                         setHistoryMap,
+                        setMtxtHistoryMap,
                         keepConfigRef.current,
                     );
                 }
@@ -301,6 +306,7 @@ export const FormComponent = ({
                                             fieldKey={key}
                                             setFieldValue={setFieldValue}
                                             displayText={formValues[key] ?? field.defaultValue ?? ""}
+                                            historyItems={mtxtHistoryMap[field.label]}
                                             fontSize={fontSize}
                                             borderValue={borderValue}
                                             isFirstTarget={isFirstTarget}
@@ -389,6 +395,7 @@ export const FormComponent = ({
                         keepConfigRef={keepConfigRef}
                         handleButtonClick={handleButtonClick}
                         setHistoryMap={setHistoryMap}
+                        setMtxtHistoryMap={setMtxtHistoryMap}
                     />
                 </div>
             )}

@@ -13,15 +13,16 @@ export type BottomButtonProps = {
   isExecutingRef: React.MutableRefObject<boolean>,
   keepConfigRef: React.MutableRefObject<KeepConfig>,
   setHistoryMap: (value: React.SetStateAction<Record<string, SuggestHistoryItem[]>>) => void,
+  setMtxtHistoryMap: (value: React.SetStateAction<Record<string, string[]>>) => void;
   handleButtonClick: (
     formConfigRef: React.MutableRefObject<form.FormConfigResponse | null>,
     btn: form.ButtonDef,
     formValuesRef: React.MutableRefObject<Record<string, string>>,
     isExecutingRef: React.MutableRefObject<boolean>,
     setHistoryMap: (value: React.SetStateAction<Record<string, SuggestHistoryItem[]>>) => void,
+    setMtxtHistoryMap: (value: React.SetStateAction<Record<string, string[]>>) => void,
     keepConfig: KeepConfig,
-  ) => Promise<void>;
-}
+  ) => Promise<void>;}
 
 export const BottomButton = ({ 
   borderValue,
@@ -31,6 +32,7 @@ export const BottomButton = ({
   isAltPressed,
   isExecutingRef,
   setHistoryMap,
+  setMtxtHistoryMap,
   handleButtonClick,
   keepConfigRef,
 }: BottomButtonProps) => {
@@ -72,6 +74,7 @@ export const BottomButton = ({
                 formValuesRef,
                 isExecutingRef,
                 setHistoryMap,
+                setMtxtHistoryMap,
                 keepConfigRef.current,
             )}
             className="

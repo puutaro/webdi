@@ -2,6 +2,7 @@ import { form } from '../../wailsjs/go/models';
 import {ExitByHidden, WriteStdoutAndExitByHidden} from "../exit/exit";
 import {SuggestHistoryItem} from "./FormComponent";
 import {saveAllTxtHistory} from "./editor/suggest";
+import {saveAllMtxtHistory} from "./editor/saveAllMtxtHistory";
 import {makeKey} from "./editor/makeKey";
 import { KeepConfig } from '../type/keepInfo';
 import { WriteStderr } from '../../wailsjs/go/main/App';
@@ -17,6 +18,7 @@ export const handleButtonClick = async (
     formValuesRef: React.MutableRefObject<Record<string, string>>,
     isExecutingRef: React.MutableRefObject<boolean>,
     setHistoryMap: (value: React.SetStateAction<Record<string, SuggestHistoryItem[]>>) => void,
+    setMtxtHistoryMap: (value: React.SetStateAction<Record<string, string[]>>) => void,
     keepConfig: KeepConfig,
 ): Promise<void> => {
     if (isExecutingRef.current) {
@@ -45,6 +47,12 @@ export const handleButtonClick = async (
         currentValues,
         setHistoryMap,
     )
+    WriteStderr(`saveAllMtxtHistory: field.label=\${field.label}, index=\${index}`);
+    saveAllMtxtHistory(
+        currentConfig,
+        currentValues,
+        setMtxtHistoryMap,
+    );
     const separator = currentConfig?.separator || "!";
     const outputString = fields
       .map((field, index) => {
